@@ -95,3 +95,29 @@
 - Hàm này sẽ quản lý các phiên đăng nhập của người dùng và đảm bảo rằng phiên đăng nhập hết hạn sẽ bị xóa.
 - Nếu phiên đăng nhập của người dùng đã hết hạn, họ sẽ phải đăng nhập lại để tiếp tục sử dụng các chức năng chỉ dành cho người dùng đã đăng nhập.
 
+### Class Posts có thể có các hàm tương ứng với các chức năng liên quan đến bài đăng trên trang báo điện tử như sau:
+
+##### Hàm tạo bài đăng mới:
+
+- Hàm này sẽ cho phép người dùng tạo một bài đăng mới trên trang web.
+- Hàm sẽ nhận đầu vào là nội dung bài đăng, tiêu đề, thể loại và các thông tin khác liên quan đến bài đăng.
+
+##### Hàm xóa bài đăng:
+
+- Hàm này sẽ cho phép người dùng xóa bài đăng đã đăng trên trang web.
+- Hàm sẽ nhận đầu vào là mã bài đăng hoặc một số thông tin khác để xác định bài đăng cần xóa.
+
+##### Hàm sửa bài đăng:
+
+- Hàm này sẽ cho phép người dùng sửa đổi nội dung của bài đăng đã đăng trên trang web.
+- Hàm sẽ nhận đầu vào là mã bài đăng hoặc một số thông tin khác để xác định bài đăng cần sửa đổi và các thông tin mới của bài đăng.
+
+##### Hàm xem danh sách bài đăng:
+
+- Hàm này sẽ hiển thị danh sách các bài đăng trên trang web.
+- Hàm sẽ có thể nhận đầu vào là một số điều kiện để lọc danh sách bài đăng như thể loại, ngày đăng, tác giả, v.v.
+
+##### Hàm tìm kiếm bài đăng:
+
+- Hàm này sẽ cho phép người dùng tìm kiếm các bài đăng trên trang web dựa trên một số từ khóa hoặc các thông tin khác.
+- Hàm sẽ nhận đầu vào là từ khóa hoặc các thông tin khác để xác định bài đăng cần tìm kiếm.
