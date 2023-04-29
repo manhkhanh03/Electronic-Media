@@ -3,7 +3,7 @@ const $$ = document.querySelectorAll.bind(document)
 
 function handleLogin() {
     const login = $('.login')
-    login.onclick = () => { 
+    login.onclick = () => {
         const name = $('#username').value
         const password = $('#password').value
         fetch('http://127.0.0.1:8000/api/login')

@@ -31,7 +31,11 @@ class LoginController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (class_exists('App\File')) {
+            return 1;
+        } else {
+            // Lớp App\File không tồn tại
+        }
     }
 
     /**

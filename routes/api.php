@@ -27,3 +27,4 @@ Route::delete('messenger/{id}', 'App\Http\Controllers\Api\MessengerController@de
 //Login
 Route::get('login', 'App\Http\Controllers\Api\LoginController@index');
 Route::post('login', 'App\Http\Controllers\Api\LoginController@store');
+Route::post('login/{id}', 'App\Http\Controllers\Api\LoginController@show');
