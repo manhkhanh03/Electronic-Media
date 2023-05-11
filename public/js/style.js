@@ -1,6 +1,6 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-
+import { user } from './login.js'
 const sender_id = user.sender_id
 console.log(sender_id)
 
@@ -241,6 +241,3 @@ function delMess() {
 
 showLogin()
 getBoxMessenger()
-
-import { user } from './login.js'
-console.log(user)
