@@ -46,7 +46,7 @@
             <p class="signup">Not a member? <u><a href="{{ url('http://127.0.0.1:8000/signup') }}">Sign up now</a></u></p>
         </div>
     </div>
-    <script src="js/login.js"></script>
+    <script type="module" src="js/login.js"></script>
 </body>
 
 </html>

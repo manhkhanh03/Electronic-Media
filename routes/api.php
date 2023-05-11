@@ -19,12 +19,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // messengers
-Route::get('messenger', 'App\Http\Controllers\Api\MessengerController@index');
-Route::get('messenger/{id}', 'App\Http\Controllers\Api\MessengerController@showBoxMess');
-Route::post('messenger', 'App\Http\Controllers\Api\MessengerController@store');
-Route::delete('messenger/{id}', 'App\Http\Controllers\Api\MessengerController@destroy');
+Route::prefix('messenger')->group(function () {
+    Route::get('', 'App\Http\Controllers\Api\MessengerController@index');
+    Route::get('/{id}', 'App\Http\Controllers\Api\MessengerController@show');
+    Route::post('', 'App\Http\Controllers\Api\MessengerController@store');
+    Route::delete('/{id}', 'App\Http\Controllers\Api\MessengerController@destroy');
+});
 
 //Login
-Route::get('login', 'App\Http\Controllers\Api\LoginController@index');
-Route::post('login', 'App\Http\Controllers\Api\LoginController@store');
-Route::post('login/{id}', 'App\Http\Controllers\Api\LoginController@show');
+Route::prefix('login')->group(function () {
+    Route::get('', 'App\Http\Controllers\Api\LoginController@index');
+    Route::get('/{id}', 'App\Http\Controllers\Api\LoginController@show');
+    Route::post('/checkLogin', 'App\Http\Controllers\Api\LoginController@login');
+    Route::post('', 'App\Http\Controllers\Api\LoginController@store');
+});

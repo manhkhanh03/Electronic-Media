@@ -1,6 +1,8 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-const sender_id = 17;
+
+const sender_id = user.sender_id
+console.log(sender_id)
 
 function showElement(element) {
     element.style.display = 'block';
@@ -43,7 +45,7 @@ function handleLoad() {
     const privacyDialog = $('.privacy-dialog')
     const itemMess = $('.item-mess')
     const prev = $('.fa-chevron-left')
-    const inputMess = $('#input-mess')
+    
     const sent = $('.fa-paper-plane')
 
     dialogbox.forEach((element, index) => {
@@ -54,7 +56,7 @@ function handleLoad() {
             showElement(privacyDialog)
         }
     });
-
+    
     prev.onclick = () => {
         hideElement(privacyDialog)
         showElement(itemMess)
@@ -101,6 +103,7 @@ function getBoxMessenger() {
     fetch(`http://127.0.0.1:8000/api/messenger/${sender_id}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             let groupedData = data.reduce((acc, item) => {
                 let key = [item.sender_id, item.receiver_id].sort().join('-');
                 if (!acc[key]) {
@@ -238,3 +241,6 @@ function delMess() {
 
 showLogin()
 getBoxMessenger()
+
+import { user } from './login.js'
+console.log(user)

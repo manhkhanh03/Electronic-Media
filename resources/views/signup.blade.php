@@ -31,7 +31,7 @@
                 </div>
                 <div class="box-inp">
                     <i class="fa-solid fa-rotate-left"></i>
-                    <input type="password" placeholder="Enter the password" name="password" id="repeat">
+                    <input type="password" placeholder="Confirm password" name="password" id="repeat">
                 </div>
             </div>
             <div class="box-remem">
@@ -54,8 +54,7 @@
             <p class="signup">Already have an account? <u><a href="{{ url('http://127.0.0.1:8000/login') }}">Login now</a></u></p>
         </div> 
     </div>
-    <script src="js/signup.js"></script>
-
+    <script src="js/signup.js"></script>      
 </body>
 
 </html>

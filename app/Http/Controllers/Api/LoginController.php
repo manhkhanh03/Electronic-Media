@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Login;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -31,10 +33,30 @@ class LoginController extends Controller
      */
     public function show(string $id)
     {
-        if (class_exists('App\File')) {
-            return 1;
-        } else {
-            // Lớp App\File không tồn tại
+        //
+    }
+
+    public function login(Request $request)
+    {
+        $user = Login::where('username', $request->input('name'))
+            // ->orWhere('email', $request->input('name'))
+            ->where('password', $request->input('password'))
+            ->first();
+
+        // if ($user && Hash::check($request->input('password'), $user->password)) {
+        if($user)
+            return response()->json( $user, 200);
+        else 
+            return response()->json(['status' => 'failed'], 401);
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('home');
         }
     }
 

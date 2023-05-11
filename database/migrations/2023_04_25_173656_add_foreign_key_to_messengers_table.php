@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messengers', function (Blueprint $table) {
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
+            // $table->foreign('sender_id')->references('id')->on('users');
+            // $table->foreign('receiver_id')->references('id')->on('users');
         });
     }
 

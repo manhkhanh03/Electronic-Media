@@ -14,14 +14,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        // for ($i = 0; $i < 15; $i++) {
-        //     \DB::table('messengers') -> insert([
-        //         'sender_id' => rand(16, 24),
-        //         'receiver_id' => rand(16, 24),
-        //         'Content' => 'Content'. $i
-        //     ]);
-        // }
-        \DB::table('user_roles') -> delete();
+        for ($i = 20; $i < 30; $i++) {
+            \DB::table('users') -> insert([
+                'user_role_id' => rand(1, 4),
+                'login_id' => rand(1, 17),
+                'name' => 'Name'. $i,
+                'address' => 'Address'. $i,
+                'phone' => 'Phone'. $i,
+                'email' => 'Phone'. $i
+
+            ]);
+        }
+        // \DB::table('users') -> drop();
+        // Schema::dropIfExists('users');
         Schema::enableForeignKeyConstraints();
     }
 }

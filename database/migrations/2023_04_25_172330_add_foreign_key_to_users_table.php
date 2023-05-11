@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('user_role_id')
-                ->references('id')
-                ->on('user_roles');
-            $table->foreign('login_id')
-                ->references('id')
-                ->on('logins');
+            // $table->foreign('user_role_id')
+            //     ->references('id')
+            //     ->on('user_roles');
+            // $table->foreign('login_id')
+            //     ->references('id')
+            //     ->on('logins');
         });
     }
 

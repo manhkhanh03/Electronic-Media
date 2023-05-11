@@ -17,4 +17,8 @@ class ElectronicMediaController extends Controller
     public function showSignup() {
         return view('signup');
     }
+
+    public function showIndex() {
+        return view('index');
+    }
 }
