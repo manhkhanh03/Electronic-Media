@@ -1,7 +1,7 @@
 // login.js module
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-let user = {}
+let user = { loading: null, data: {} }
 
 function handleLogin() {
 
@@ -23,10 +23,11 @@ function handleLogin() {
         .then((response) => response.json())
         .then((data) => {
             user = data;
-            window.location.href = 'index'
-        })
-        .catch(() => {
-            $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Tên đăng nhập hoặc mật khẩu không khớp</p>'
+            if (data.status)
+                $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Tên đăng nhập hoặc mật khẩu không khớp</p>'
+            else 
+                window.location.href = 'index?id=' + data.id;
+
         })
 }
 const login = $('.login')

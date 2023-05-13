@@ -30,6 +30,17 @@ Route::prefix('messenger')->group(function () {
 Route::prefix('login')->group(function () {
     Route::get('', 'App\Http\Controllers\Api\LoginController@index');
     Route::get('/{id}', 'App\Http\Controllers\Api\LoginController@show');
+    Route::get('/user/id', 'App\Http\Controllers\Api\LoginController@idUser');
     Route::post('/checkLogin', 'App\Http\Controllers\Api\LoginController@login');
     Route::post('', 'App\Http\Controllers\Api\LoginController@store');
+});
+
+Route::prefix('user')->group(function () {
+    route::get('/{id}', 'App\Http\Controllers\Api\UserController@show');
+});
+
+Route::prefix('post')->group(function () {
+    Route::get('', 'App\Http\Controllers\Api\PostController@index');
+    Route::get('/hot', 'App\Http\Controllers\Api\PostController@show');
+    Route::get('/hot_0', 'App\Http\Controllers\Api\PostController@showPostHot_0');
 });

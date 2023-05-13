@@ -1,15 +1,42 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-import { user } from './login.js'
-const sender_id = user.sender_id
-console.log(sender_id)
+// import { user } from './login.js'
+const urlParams = new URLSearchParams(window.location.search);
 
+let sender_id = urlParams.get('id');
+var user = {};
+fetch(`http://127.0.0.1:8000/api/user/${sender_id}`)
+    .then(response => response.json())
+    .then((data) => {
+        user = data;
+        return data;
+    })
+    .then(data => { 
+        showUser(user)
+    })
+    .catch(err => { console.log(err) })
 function showElement(element) {
     element.style.display = 'block';
 }
-
+    
 function hideElement(element) {
     element.style.display = 'none';
+}
+
+function showUser(data) {
+    const boxUser = $('.box-user')
+    if (sender_id) {
+        boxUser.innerHTML = `<div class="box-user">
+                        <p>${data[0].name}</p>
+                        <img src="${data[0].url}" alt="">
+                        <ul class="box-logout" style="display: none;">
+                            <li>Sửa thông tin</li>
+                            <li>Logout</li>
+                        </ul>
+                    </div>`
+    } else {
+        boxUser.innerHTML = `<i class="fa-solid fa-user"></i>`
+    }
 }
 
 function addMessage(text) {
@@ -24,15 +51,9 @@ function addMessage(text) {
 }
 
 function handleLoad() {
-    const iconSearch = $('.fa-magnifying-glass');
-    const input = $('#search');
     const mess = $('.fa-facebook-messenger')
     const boxMess = $('.box-mess');
 
-    iconSearch.onclick = () => {
-        input.style.animation = 'display 0.5s ease-in';
-        input.style.right = '8%'
-    }
     mess.onclick = () => {
         boxMess.style.display = boxMess.style.display == 'none' ? 'block' : 'none';
     }
@@ -45,7 +66,7 @@ function handleLoad() {
     const privacyDialog = $('.privacy-dialog')
     const itemMess = $('.item-mess')
     const prev = $('.fa-chevron-left')
-    
+
     const sent = $('.fa-paper-plane')
 
     dialogbox.forEach((element, index) => {
@@ -56,16 +77,18 @@ function handleLoad() {
             showElement(privacyDialog)
         }
     });
-    
-    prev.onclick = () => {
-        hideElement(privacyDialog)
-        showElement(itemMess)
-        getBoxMessenger()
-    }
 
-    sent.onclick = () => {
-        addMessage(inputMess.value);
-        inputMess.value = '';
+    if (sender_id) {
+        prev.onclick = () => {
+            hideElement(privacyDialog)
+            showElement(itemMess)
+            getBoxMessenger()
+        }
+
+        sent.onclick = () => {
+            addMessage(inputMess.value);
+            inputMess.value = '';
+        }
     }
 }
 
@@ -99,74 +122,79 @@ function dialogMess(data) {
 
 function getBoxMessenger() {
     const item = $('.item-mess');
-
-    fetch(`http://127.0.0.1:8000/api/messenger/${sender_id}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            let groupedData = data.reduce((acc, item) => {
-                let key = [item.sender_id, item.receiver_id].sort().join('-');
-                if (!acc[key]) {
-                    acc[key] = [];
-                }
-                acc[key].push(item);
-                return acc;
-            }, {});
-            let uniqueArray = Object.values(groupedData).map(group => group.reduce((a, b) => new Date(a.created_at).getTime() >
-                new Date(b.created_at).getTime() ? a : b))//.filter(item => sender_id != item.receiver_id);
-            const htmls = uniqueArray.map(messenger => {
-                if (messenger.receiver_id != sender_id)
-                    return `<div class="dialogbox" data-id="${messenger.receiver_id}">
-                        <img src="img/gg.webp" alt="">
-                        <div class="info-mess">
-                            <p class="name">${messenger.name}</p>
-                            <p class="info-mess">Bạn: ${messenger.content}</p>
-                        </div>
-                    </div>`
-                else
-                    return `<div class="dialogbox mess-active" data-id="${messenger.sender_id}">
-                        <img src="img/gg.webp" alt="">
-                        <div class="info-mess">
-                            <p class="name">${messenger.name}</p>
-                            <p class="info-mess">${messenger.content}</p>
-                        </div>
-                    </div>`
-            }
-            )
-            item.innerHTML = htmls.join('');
-            return data;
-        })
-
-        .then(data => {
-            const privacyDialog = $('.privacy-dialog')
-            let htmls = `<div class="user">
-                        <i class="fa-solid fa-chevron-left"></i>
-                        <img src="" alt="">
-                        <p class="name"></p>
-                    </div>
-                    <ul class="dialog-box-privacy"></ul>
-                    <div class="input-mess">
-                    <input type="text" name="" id="input-mess" placeholder="Nhập tin nhắn...">
-                    <i class="fa-regular fa-paper-plane"></i>
-                </div>`
-            privacyDialog.innerHTML = htmls;
-            handleLoad();
-            dialogMess(data);
-        })
-        .then(() => {
-            const sent = $('.fa-paper-plane')
-            const inputValue = $('#input-mess')
-            inputValue.addEventListener('focus', () => {
-                inputValue.addEventListener('keydown', (event) => {
-                    if (event.which === 13) {
-                        sent.click()
+    if (sender_id == undefined) {
+        item.innerHTML = `
+                        <div class="none">Không có tin nhắn nào <br> Hãy đăng nhập để sử dụng tính năng nhắn tin</div>
+                    `
+        handleLoad();
+    } else {
+        fetch(`http://127.0.0.1:8000/api/messenger/${sender_id}`)
+            .then(response => response.json())
+            .then(data => {
+                let groupedData = data.reduce((acc, item) => {
+                    let key = [item.sender_id, item.receiver_id].sort().join('-');
+                    if (!acc[key]) {
+                        acc[key] = [];
                     }
-                })
+                    acc[key].push(item);
+                    return acc;
+                }, {});
+                let uniqueArray = Object.values(groupedData).map(group => group.reduce((a, b) => new Date(a.created_at).getTime() >
+                    new Date(b.created_at).getTime() ? a : b))//.filter(item => sender_id != item.receiver_id);
+                const htmls = uniqueArray.map(messenger => {
+                    if (messenger.receiver_id != sender_id)
+                        return `<div class="dialogbox" data-id="${messenger.receiver_id}">
+                            <img src="img/gg.webp" alt="">
+                            <div class="info-mess">
+                                <p class="name">${messenger.name}</p>
+                                <p class="info-mess">Bạn: ${messenger.content}</p>
+                            </div>
+                        </div>`
+                    else
+                        return `<div class="dialogbox mess-active" data-id="${messenger.sender_id}">
+                            <img src="img/gg.webp" alt="">
+                            <div class="info-mess">
+                                <p class="name">${messenger.name}</p>
+                                <p class="info-mess">${messenger.content}</p>
+                            </div>
+                        </div>`
+                }
+                )
+                item.innerHTML = htmls.join('');
+                return data;
             })
-            sent.onclick = () => {
-                postMessenger(inputValue);
-            }
-        })
+
+            .then(data => {
+                const privacyDialog = $('.privacy-dialog')
+                let htmls = `<div class="user">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <img src="" alt="">
+                            <p class="name"></p>
+                        </div>
+                        <ul class="dialog-box-privacy"></ul>
+                        <div class="input-mess">
+                        <input type="text" name="" id="input-mess" placeholder="Nhập tin nhắn...">
+                        <i class="fa-regular fa-paper-plane"></i>
+                    </div>`
+                privacyDialog.innerHTML = htmls;
+                handleLoad();
+                dialogMess(data);
+            })
+            .then(() => {
+                const sent = $('.fa-paper-plane')
+                const inputValue = $('#input-mess')
+                inputValue.addEventListener('focus', () => {
+                    inputValue.addEventListener('keydown', (event) => {
+                        if (event.which === 13) {
+                            sent.click()
+                        }
+                    })
+                })
+                sent.onclick = () => {
+                    postMessenger(inputValue);
+                }
+            })
+    }
 }
 
 function postMessenger(inputValue) {
@@ -200,8 +228,10 @@ function postMessenger(inputValue) {
 
 function showLogin() {
     const user = $('.fa-user')
-    user.onclick = () => {
-        window.location.href = 'http://127.0.0.1:8000/login'
+    if (user) {
+        user.onclick = () => {
+            window.location.href = 'http://127.0.0.1:8000/login'
+        }
     }
 }
 
@@ -240,4 +270,6 @@ function delMess() {
 }
 
 showLogin()
+// can sua lai khi da lay duoc user
+
 getBoxMessenger()

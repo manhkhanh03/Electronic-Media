@@ -53,10 +53,7 @@
                 <i class="fa-brands fa-facebook-f"></i>
                 <i class="fa-brands fa-instagram"></i>
                 <i class="fa-brands fa-twitter"></i>
-                <div class="box-user">
-                    <i class="fa-solid fa-user"></i>
-                    
-                </div>
+                <div class="box-user"></div>
             </div>
         </menu>
         <div class="logo-bn">
@@ -67,28 +64,34 @@
         <nav class="nav">
             <ul class="list-nav">
                 <li class="nav-item">
-                    <a href="">Home</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">Thế giới</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Thế giới') }}">Thế giới</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">Kinh tế</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Kinh tế') }}">Kinh tế</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">Thể thao</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Thể thao') }}">Thể thao</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">Giải trí</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Giải trí') }}">Giải trí</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">KH-CN</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Khoa học - Công nghệ') }}">KH-CN</a>
                 </li>
                 <li class="nav-item">
-                    <a href="">VH-XH</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Văn hóa - Xã hội') }}">VH-XH</a>
                 </li>
-                <li class="nav-item">
-                    <a href="">...</a>
+                <li class="nav-item other">
+                    <p>...</p>
+                    <ul class="list-other">
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Pháp luật') }}">Pháp luật</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Giáo dục') }}">Giáo dục</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/An ninh') }}">An ninh</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Sức khỏe') }}">Sức khỏe</a></li>
+                    </ul>
                 </li>
             </ul>
             <div class="box-search">
@@ -98,10 +101,10 @@
         </nav>
 
         <!-- Body -->
-        <div class="body">
+        <main class="body">
             <div class="post-host">
                 <div class="post-1">
-                    <img src="img/uk.jpg" alt="">
+                    {{-- <img src="img/uk.jpg" alt="">
                     <h3>Ukraine nêu thương vong của Nga ở mặt trận khốc liệt nhất</h3>
                     <p>Ông Đoàn Bá Hồng sử dụng 24 tài khoản để giao dịch tạo cung, cầu giả tạo, thao túng cổ phiếu
                         nhưng không có số lợi bất
@@ -119,10 +122,10 @@
                                 <button class="mess-author">Nhắn tin</button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="post-2">
-                    <div class="box-post-2">
+                    {{-- <div class="box-post-2">
                         <img src="img/ukuk.jpg" alt="">
                         <h5>Nga - Ukraine trao đổi tù binh quy mô lớn</h5>
                         <p>Khi ông mặt trời thức dậy mẹ lên rẫy con lên trường....</p>
@@ -159,7 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="poster">
                     <img src="img/blob.jpg" alt="">
@@ -168,104 +171,11 @@
             <div class="posts">
                 <div class="post-left">
                     <ul class="list-fun">
-                        <li class="fun-item active">Kinh tế</li>
-                        <li class="fun-item">Thể thao</li>
-                        <li class="fun-item">Giải trí</li>
+                        <li class="fun-item active" data-theme-type="2">Kinh tế</li>
+                        <li class="fun-item" data-theme-type="3">Thể thao</li>
+                        <li class="fun-item" data-theme-type="4">Giải trí</li>
                     </ul>
-                    <ul class="list-posts">
-                        <li class="post-item">
-                            <img class="img-post" src="img/hk.jpg" alt="">
-                            <div class="information-post">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <p>Ông Đoàn Bá Hồng sử dụng 24 tài khoản để giao dịch tạo cung, cầu giả tạo, thao túng
-                                    cổ phiếu nhưng không có số lợi bất
-                                    hợp pháp nên chỉ bị phạt 550 triệu đồng.</p>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-item">
-                            <img class="img-post" src="img/hdbh.jpg" alt="">
-                            <div class="information-post">
-                                <h3>Bộ Tài chính yêu cầu chấn chỉnh hoạt động bảo hiểm</h3>
-                                <p>Lãnh đạo Bộ Tài chính chỉ đạo Cục Quản lý, giám sát bảo hiểm yêu cầu doanh nghiệp bảo
-                                    hiểm nhân thọ rà soát lại quy
-                                    trình bán các sản phẩm bảo hiểm nhân thọ.</p>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-item">
-                            <img class="img-post" src="img/hk.jpg" alt="">
-                            <div class="information-post">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <p>Ông Đoàn Bá Hồng sử dụng 24 tài khoản để giao dịch tạo cung, cầu giả tạo, thao túng
-                                    cổ phiếu nhưng không có số lợi bất
-                                    hợp pháp nên chỉ bị phạt 550 triệu đồng.</p>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-item">
-                            <img class="img-post" src="img/hdbh.jpg" alt="">
-                            <div class="information-post">
-                                <h3>Bộ Tài chính yêu cầu chấn chỉnh hoạt động bảo hiểm</h3>
-                                <p>Lãnh đạo Bộ Tài chính chỉ đạo Cục Quản lý, giám sát bảo hiểm yêu cầu doanh nghiệp bảo
-                                    hiểm nhân thọ rà soát lại quy
-                                    trình bán các sản phẩm bảo hiểm nhân thọ.</p>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="list-posts"></ul>
                 </div>
                 <div class="post-right">
                     <img src="img/somany.jpg" alt="" class="banner-post">
@@ -365,12 +275,11 @@
                     </div>
                     <div class="item-mess">
                         <div class="none">Không có tin nhắn nào</div>
-                        
                     </div>
 
                     <div class="privacy-dialog">
                         <div class="box-privacy-dialog">
-                            <div class="user">
+                            {{-- <div class="user">
                                 <i class="fa-solid fa-chevron-left"></i>
                                 <img src="" alt="">
                                 <p class="name"></p>
@@ -393,13 +302,13 @@
                             <div class="input-mess">
                                 <input type="text" name="" id="input-mess" placeholder="Nhập tin nhắn...">
                                 <i class="fa-regular fa-paper-plane"></i>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
             <div style="width: 100%; height: 2px; background-color: var(--color); margin: 30px 0;"></div>
-        </div>
+        </main>
 
     </div>
     <!-- Footer -->
@@ -436,7 +345,9 @@
             </div>
         </div>
     </footer>
-    <script type="module" src="js/style.js"></script>
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/posts.js"></script>
 </body>
 
 </html><?php /**PATH /home/manhkhanh/ElectronicMedia/resources/views/index.blade.php ENDPATH**/ ?>

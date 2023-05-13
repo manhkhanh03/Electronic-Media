@@ -21,4 +21,8 @@ class ElectronicMediaController extends Controller
     public function showIndex() {
         return view('index');
     }
+
+    public function showCategories(string $categories) {
+        return view('categories')-> with('categories', $categories);
+    }
 }

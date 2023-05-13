@@ -13,6 +13,7 @@ class LoginController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
         $data = Login::all();
@@ -33,21 +34,35 @@ class LoginController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Login::find($id);
+        return response()->json($data, 200, ['OK']);
     }
 
     public function login(Request $request)
     {
+        // session_start();
         $user = Login::where('username', $request->input('name'))
             // ->orWhere('email', $request->input('name'))
             ->where('password', $request->input('password'))
             ->first();
 
         // if ($user && Hash::check($request->input('password'), $user->password)) {
-        if($user)
+        if($user) {
+            session()->put('user_id', $user->id);
             return response()->json( $user, 200);
+            // return response()->json(['id' => session()->get('user_id')], 200);
+        }
         else 
             return response()->json(['status' => 'failed'], 401);
+    }
+
+    public function idUser () {
+        $user_id = session()->get('user_id');
+        if ($user_id) {
+            return response()->json(['id' => $user_id], 200);
+        } else {
+            return response()->json(['status' => 'failed'], 401);
+        }
     }
 
     public function authenticate(Request $request)
