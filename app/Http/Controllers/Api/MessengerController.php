@@ -37,13 +37,24 @@ class MessengerController extends Controller
      */
     public function show(string $id)
     {
-        $data = Messenger::join('users', 'users.id', '=', 'messengers.receiver_id')
+        $data_sender_id = Messenger::join('users', 'users.id', '=', 'messengers.receiver_id')
+            ->join('images', 'images.mode_id', '=', 'messengers.receiver_id')
             ->where('sender_id', $id)
-            ->orWhere('receiver_id', $id)
-            ->select('messengers.*', 'users.name')
+            ->where('images.type', 0)
+            ->select('messengers.*', 'users.name', 'images.url')
             ->orderBy('created_at')
             ->get();
-        return response()->json($data, 200, ['OK']);
+
+        $data_receiver_id = Messenger::join('users', 'users.id', '=', 'messengers.sender_id')
+            ->join('images', 'images.mode_id', '=', 'messengers.sender_id')
+            ->where('receiver_id', $id)
+            ->where('images.type', 0)
+            ->select('messengers.*', 'users.name', 'images.url')
+            ->orderBy('created_at')
+            ->get();
+        
+        $mergedData = $data_sender_id->merge($data_receiver_id)->toArray();
+        return response()->json($mergedData, 200, ['OK']);
     }
 
     /**

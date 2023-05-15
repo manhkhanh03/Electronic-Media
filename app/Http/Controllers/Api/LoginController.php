@@ -25,6 +25,10 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+        $name = Login::where('username', $request->input('username'))->first();
+        if($name) {
+            return response()->json(['status' => 'false'], 401);
+        }
         $data = Login::create($request -> all());
         return response()->json($data, 200, ['Created']);
     }
@@ -50,7 +54,6 @@ class LoginController extends Controller
         if($user) {
             session()->put('user_id', $user->id);
             return response()->json( $user, 200);
-            // return response()->json(['id' => session()->get('user_id')], 200);
         }
         else 
             return response()->json(['status' => 'failed'], 401);

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,8 +37,11 @@ class DatabaseSeeder extends Seeder
             //         Khả năng Messi đến Saudi Arabia ngày càng lớn, khi ngôi sao người Argentina vừa nhận án phạt treo giò 2 tuần tại PSG sau chuyến đi trái phép đến đất nước ở Trung Đông hôm 1/5.',
             // ]);
         // }
-        // \DB::table('users') -> drop();
+        // \DB::table('users') -> delete();
         // Schema::dropIfExists('users');
+        Schema::table('images', function (Blueprint $table) {
+            $table->dropForeign('images_mode_id_foreign');
+        });
         Schema::enableForeignKeyConstraints();
     }
 }

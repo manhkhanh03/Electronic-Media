@@ -64,38 +64,37 @@
         <nav class="nav">
             <ul class="list-nav">
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/index') }}">Home</a>
+                    <a href="{{ url('http://127.0.0.1:8000/index') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Thế giới') }}">Thế giới</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Thế giới/1') }}">Thế giới</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Kinh tế') }}">Kinh tế</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Kinh tế/2') }}">Kinh tế</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Thể thao') }}">Thể thao</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Thể thao/3') }}">Thể thao</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Giải trí') }}">Giải trí</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Giải trí/4') }}">Giải trí</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Khoa học - Công nghệ') }}">KH-CN</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Khoa học - Công nghệ/5') }}">KH-CN</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/Văn hóa - Xã hội') }}">VH-XH</a>
+                    <a href="{{ url('http://127.0.0.1:8000/home/Văn hóa - Xã hội/6') }}">VH-XH</a>
                 </li>
                 <li class="nav-item other">
                     <p>...</p>
                     <ul class="list-other">
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Pháp luật') }}">Pháp luật</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Giáo dục') }}">Giáo dục</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/An ninh') }}">An ninh</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Sức khỏe') }}">Sức khỏe</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Pháp luật/7') }}">Pháp luật</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Giáo dục/8') }}">Giáo dục</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/An ninh/9') }}">An ninh</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Sức khỏe/10') }}">Sức khỏe</a></li>
                     </ul>
                 </li>
             </ul>
             <div class="box-search">
-                <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" class="input-search" id="search" placeholder="Tìm kiếm bài viết...">
             </div>
         </nav>
@@ -179,88 +178,7 @@
                 </div>
                 <div class="post-right">
                     <img src="img/somany.jpg" alt="" class="banner-post">
-                    <ul class="list-post-topic">
-                        <li class="topic-item">
-                            <img src="img/hk.jpg" alt="">
-                            <div class="information-post-right">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="topic-item">
-                            <img src="img/hk.jpg" alt="">
-                            <div class="information-post-right">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="topic-item">
-                            <img src="img/hk.jpg" alt="">
-                            <div class="information-post-right">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="topic-item">
-                            <img src="img/hk.jpg" alt="">
-                            <div class="information-post-right">
-                                <h3>Một người dùng 24 tài khoản thao túng cổ phiếu C69, bị phạt 550 triệu đồng</h3>
-                                <div class="info-author">
-                                    <div class="author">
-                                        <img src="img/fb.jpg" alt="" class="img-author">
-                                        <p class="name-author">
-                                            Mạnh Khánh
-                                        </p>
-                                        <p class="date-time">20:00:00 - 16/04/2023</p>
-                                        <div class="contact-author">
-                                            <img src="img/fb.jpg" alt="">
-                                            <p class="name-author">Mạnh Khánh</p>
-                                            <button class="mess-author">Nhắn tin</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="list-post-topic"></ul>
                 </div>
             </div>
             <div class="messenger">
@@ -278,32 +196,7 @@
                     </div>
 
                     <div class="privacy-dialog">
-                        <div class="box-privacy-dialog">
-                            {{-- <div class="user">
-                                <i class="fa-solid fa-chevron-left"></i>
-                                <img src="" alt="">
-                                <p class="name"></p>
-                            </div>
-
-                            <div class="dialog-box-privacy">
-                                <div class="box-dialog-box-privacy">
-                                    <p class="me"></p>
-                                </div>
-                                <div class="box-dialog-box-privacy">
-                                    <p class="you"></p>
-                                </div>
-                                <div class="box-dialog-box-privacy">
-                                    <p class="you"></p>
-                                </div>
-                                <div class="box-dialog-box-privacy">
-                                    <p class="me"></p>
-                                </div>
-                            </div>
-                            <div class="input-mess">
-                                <input type="text" name="" id="input-mess" placeholder="Nhập tin nhắn...">
-                                <i class="fa-regular fa-paper-plane"></i>
-                            </div> --}}
-                        </div>
+                        <div class="box-privacy-dialog"></div>
                     </div>
                 </div>
             </div>
@@ -346,8 +239,9 @@
         </div>
     </footer>
     <script type="module" src="js/index.js"></script>
-    <script type="module" src="js/main.js"></script>
     <script type="module" src="js/posts.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/importUser.js"></script>
 </body>
 
 </html><?php /**PATH /home/manhkhanh/ElectronicMedia/resources/views/index.blade.php ENDPATH**/ ?>

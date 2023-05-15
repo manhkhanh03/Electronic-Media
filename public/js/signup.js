@@ -12,7 +12,7 @@ function isSign() {
         if (name != '' && password != '' && email != '' && repeat != '') {
             if (password === repeat && password.length >= 8) {
                 const data = {
-                    name: name,
+                    username: name,
                     password: password,
                     email: email
                 }
@@ -26,16 +26,20 @@ function isSign() {
                 }
 
                 fetch('http://127.0.0.1:8000/api/login', options)
-                    .then(() => {
-                        window.location.href = '/login'
+                    .then(data => data.json())
+                    .then((data) => {
+                            if(!data.status)
+                                window.location.href = '/login'
+                            else $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Tên đăng nhập đã tồn tại</p>'
                     })
                     .catch(err => { 
                         console.log(err)
                     })
-            }
+            } else
+                $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Mật khẩu không đủ mạnh hoặc không trùng</p>'
                 
-        }
-        $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Không được để trống thông tin và mật khẩu dài hơn 8 ký tự</p>'
+        }else 
+            $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Không được để trống thông tin và mật khẩu dài hơn 8 ký tự</p>'
     }
     
 } 

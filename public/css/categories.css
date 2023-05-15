@@ -3,20 +3,6 @@
     padding-top: 30px;
 }
 
-.posts {
-    display: flex;
-    justify-content: space-between;
-    margin: 50px 0;
-}
-
-.post-left {
-    width: 67%;
-}
-
-.post-right {
-    width: 30%;
-}
-
 .list-post {
     position: relative;
 }
@@ -34,7 +20,7 @@
 }
 
 .post-item {
-    position: relative;
+    display: block;
     padding-left: 10px;
 }
 
@@ -48,20 +34,6 @@
     top: 0;
     left: -3px;
 }
-
-.post-item-div {
-    display: flex;
-    cursor: pointer;
-}
-
-.post-item .img-post {
-    width: 43%;
-    height: 201px;
-    margin-left: 30px;
-    min-width: 332px;
-}
-
-.information-post {}
 
 .information-post h3 {
     font-size: 20px;

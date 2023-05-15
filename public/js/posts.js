@@ -20,7 +20,7 @@ function postHost() {
                         <div class="contact-author">
                             <img src="${data[0].user_data[0].url_user}" alt="">
                             <p class="name-author"> ${data[0].user_data[0].name}</p>
-                            <button class="mess-author">Nhắn tin</button>
+                            <button class="mess-author" data-receiver-id="${data[0].user_id}">Nhắn tin</button>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ function postHost() {
                                     <div class="contact-author">
                                         <img src="${value.user_data[0].url_user}" alt="">
                                         <p class="name-author">${value.user_data[0].name}</p>
-                                        <button class="mess-author">Nhắn tin</button>
+                                        <button class="mess-author" data-receiver-id="${value.user_id}">Nhắn tin</button>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ function listPost() {
                                     <div class="contact-author">
                                         <img src="${post.user_data[0].url_user}" alt="">
                                         <p class="name-author">${post.user_data[0].name}</p>
-                                        <button class="mess-author">Nhắn tin</button>
+                                        <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
                                     </div>
                                 </div>
                             </div>
@@ -95,42 +95,6 @@ function listPost() {
         })
         .then(() => {
             setBtnlistPost()
-        })
-}
-
-function listTopicPost() {
-    
-    fetch('http://127.0.0.1:8000/api/post/hot_0')
-        .then(response => response.json())
-        .then((posts) => { 
-            posts.sort(() => Math.random() - 0.5);
-            const listpost = $('.list-post-topic')
-            const htmls = posts.map((post, index) => {
-                if (index <= 7) 
-                    return `
-                    <li class="topic-item">
-                        <img src="${post.url}" alt="">
-                        <div class="information-post-right">
-                            <h3>${post.title}</h3>
-                            <div class="info-author">
-                                <div class="author">
-                                    <img src="${post.user_data[0].url_user}" alt="" class="img-author">
-                                    <p class="name-author">
-                                       ${post.user_data[0].name}
-                                    </p>
-                                    <p class="date-time">${post.created_at}</p>
-                                    <div class="contact-author">
-                                        <img src="${post.user_data[0].url_user}" alt="">
-                                        <p class="name-author">${post.user_data[0].name}</p>
-                                        <button class="mess-author">Nhắn tin</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                `
-            })
-            listpost.innerHTML = htmls.join('')
         })
 }
 
@@ -160,7 +124,6 @@ function setBtnlistPost() {
 function start() {
     postHost()
     listPost()
-    listTopicPost()
 }
 
 start()

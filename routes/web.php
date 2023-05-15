@@ -29,4 +29,4 @@ Route::get('login', 'App\Http\Controllers\ElectronicMediaController@showLogin');
 
 Route::get('signup', 'App\Http\Controllers\ElectronicMediaController@showSignup');
 
-Route::get('home/{fun}', 'App\Http\Controllers\ElectronicMediaController@showCategories');
+Route::get('home/{fun}/{id}', 'App\Http\Controllers\ElectronicMediaController@showCategories');

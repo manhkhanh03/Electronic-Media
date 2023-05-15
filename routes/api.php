@@ -43,4 +43,5 @@ Route::prefix('post')->group(function () {
     Route::get('', 'App\Http\Controllers\Api\PostController@index');
     Route::get('/hot', 'App\Http\Controllers\Api\PostController@show');
     Route::get('/hot_0', 'App\Http\Controllers\Api\PostController@showPostHot_0');
+    Route::get('/theme_type/{id}', 'App\Http\Controllers\Api\PostController@showTheme_Type');
 });

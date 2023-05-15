@@ -22,7 +22,7 @@ class ElectronicMediaController extends Controller
         return view('index');
     }
 
-    public function showCategories(string $categories) {
-        return view('categories')-> with('categories', $categories);
+    public function showCategories(string $categories, $id) {
+        return view('categories')->with(['categories' => $categories, 'cate_id' => $id]);
     }
 }

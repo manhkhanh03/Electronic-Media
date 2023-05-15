@@ -65,6 +65,23 @@ class PostController extends Controller
         return response()->json($data, 200, ['OK']);
     }
 
+    public function showTheme_Type($theme_type) {
+        $data = Post::join('images', 'mode_id', '=', 'posts.id')
+            // ->where('mode_id', $id)
+            ->where('type', 1)
+            ->where('status_id', 2)
+            ->where('theme_type_id', $theme_type)
+            ->select('posts.*')
+            ->selectRaw('images.mode_id AS mode_post, images.url, images.content AS contentImg', [] )
+            ->orderBy('hot', 'asc')
+            ->get();
+        foreach ($data as $post) {
+            $user_data = $this->show_user($post->user_id);
+            $post->user_data = $user_data;
+        }
+        return response()->json($data, 200, ['OK']);
+    }
+
     public function show_user(string $id) {
         $data = User::join('images', 'mode_id', '=', 'users.id')
             ->where('mode_id', $id)
