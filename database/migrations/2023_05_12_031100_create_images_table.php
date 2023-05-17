@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('content', 100)->nullable();
             $table->integer('type');
             $table->timestamps();
-             $table->foreign('mode_id')->references('id')->on('users')->on('posts');
+            $table->foreign('mode_id')->references('id')->on('users')->on('posts');
         });
     }
 

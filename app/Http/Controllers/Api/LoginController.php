@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // session_start();
+        session_start();
         $user = Login::where('username', $request->input('name'))
             // ->orWhere('email', $request->input('name'))
             ->where('password', $request->input('password'))
@@ -61,11 +61,10 @@ class LoginController extends Controller
 
     public function idUser () {
         $user_id = session()->get('user_id');
-        if ($user_id) {
+        if ($user_id)
             return response()->json(['id' => $user_id], 200);
-        } else {
+        else
             return response()->json(['status' => 'failed'], 401);
-        }
     }
 
     public function authenticate(Request $request)
