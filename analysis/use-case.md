@@ -121,3 +121,5 @@
 
 - Hàm này sẽ cho phép người dùng tìm kiếm các bài đăng trên trang web dựa trên một số từ khóa hoặc các thông tin khác.
 - Hàm sẽ nhận đầu vào là từ khóa hoặc các thông tin khác để xác định bài đăng cần tìm kiếm.
+
+### Categories
