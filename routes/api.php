@@ -39,9 +39,12 @@ Route::prefix('user')->group(function () {
     route::get('/{id}', 'App\Http\Controllers\Api\UserController@show');
 });
 
-Route::prefix('post')->group(function () {
-    Route::get('', 'App\Http\Controllers\Api\PostController@index');
-    Route::get('/hot', 'App\Http\Controllers\Api\PostController@show');
-    Route::get('/hot_0', 'App\Http\Controllers\Api\PostController@showPostHot_0');
-    Route::get('/theme_type/{id}', 'App\Http\Controllers\Api\PostController@showTheme_Type');
+Route::prefix('articles')->group(function () {
+    Route::post('', 'App\Http\Controllers\Api\ArticleController@store');
+    Route::get('/hot', 'App\Http\Controllers\Api\ArticleController@showPostHot');
+    Route::get('/hot_0', 'App\Http\Controllers\Api\ArticleController@showPostHot_0');
+    Route::get('/{id}', 'App\Http\Controllers\Api\ArticleController@showArticleById');
+    Route::put('/{id}', 'App\Http\Controllers\Api\ArticleController@update');
+    Route::delete('/{id}', 'App\Http\Controllers\Api\ArticleController@destroy');
+    Route::get('/categories/{id}', 'App\Http\Controllers\Api\ArticleController@showCategories');
 });

@@ -21,12 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('home', 'App\Http\Controllers\ElectronicMediaController@showHome');
-
-Route::get('index', 'App\Http\Controllers\ElectronicMediaController@showIndex');
-
-Route::get('login', 'App\Http\Controllers\ElectronicMediaController@showLogin');
-
-Route::get('signup', 'App\Http\Controllers\ElectronicMediaController@showSignup');
+Route::get('index/{address}', 'App\Http\Controllers\ElectronicMediaController@show');
+Route::get('index/editer/write_article/{id?}', 'App\Http\Controllers\ElectronicMediaController@showWriteArticle');
 
 Route::get('home/{fun}/{id}', 'App\Http\Controllers\ElectronicMediaController@showCategories');
+
+Route::get('index/article/{id}', 'App\Http\Controllers\ElectronicMediaController@showArticle');

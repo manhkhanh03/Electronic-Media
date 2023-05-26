@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$categories}}</title>
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/categories.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -65,7 +64,7 @@
         <nav class="nav">
             <ul class="list-nav">
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/index?id=') }}">Home</a>
+                    <a href="{{ url('http://127.0.0.1:8000/index/index') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('http://127.0.0.1:8000/home/Thế giới/1') }}">Thế giới</a>

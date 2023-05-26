@@ -37,11 +37,11 @@ class DatabaseSeeder extends Seeder
             //         Khả năng Messi đến Saudi Arabia ngày càng lớn, khi ngôi sao người Argentina vừa nhận án phạt treo giò 2 tuần tại PSG sau chuyến đi trái phép đến đất nước ở Trung Đông hôm 1/5.',
             // ]);
         // }
-        // \DB::table('users') -> delete();
-        // Schema::dropIfExists('users');
-        Schema::table('images', function (Blueprint $table) {
-            $table->dropForeign('images_mode_id_foreign');
-        });
+        \DB::table('posts') -> delete();
+        Schema::dropIfExists('posts');
+        // Schema::table('images', function (Blueprint $table) {
+        //     $table->dropForeign('images_mode_id_foreign');
+        // });
         Schema::enableForeignKeyConstraints();
     }
 }

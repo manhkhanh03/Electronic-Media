@@ -1,61 +1,23 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-import { sender_id } from "./importUser.js";
-function listTopicPost() {
-    let url;
-    if ($('#categories')) 
-        url = `http://127.0.0.1:8000/api/post/theme_type/${$('#categories').getAttribute('data-cate-id')}`
-    else url = 'http://127.0.0.1:8000/api/post/hot_0'
+const urlParams = new URLSearchParams(window.location.search);
 
-    fetch(url)
-        .then(response => response.json())
-        .then((posts) => {
-            posts.sort(() => Math.random() - 0.5);
-            const listpost = $('.list-post-topic')
-            const htmls = posts.map((post, index) => {
-                if (index <= 7)
-                    return `
-                    <li class="topic-item">
-                        <img src="${post.url}" alt="">
-                        <div class="information-post-right">
-                            <h3>${post.title}</h3>
-                            <div class="info-author">
-                                <div class="author">
-                                    <img src="${post.user_data[0].url_user}" alt="" class="img-author">
-                                    <p class="name-author">
-                                       ${post.user_data[0].name}
-                                    </p>
-                                    <p class="date-time">${post.created_at}</p>
-                                    <div class="contact-author">
-                                        <img src="${post.user_data[0].url_user}" alt="">
-                                        <p class="name-author">${post.user_data[0].name}</p>
-                                        <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                `
+let sender_id = urlParams.get('id');
+function checkUser() {
+    if (sender_id) {
+        fetch(`http://127.0.0.1:8000/api/user/${sender_id}`)
+            .then(response => response.json())
+            .then(data => {
+                showUser(data)
             })
-            listpost.innerHTML = htmls.join('')
-            mess()
-        })
-}
-
-if (sender_id) {
-    fetch(`http://127.0.0.1:8000/api/user/${sender_id}`)
-        .then(response => response.json())
-        .then(data => {
-            showUser(data)
-        })
-        .catch(err => { console.log(err) })
-} else {
-    $('.box-user').innerHTML = `<i class="fa-solid fa-user"></i>`
+            .catch(err => { console.log(err) })
+    } else {
+        $('.box-user').innerHTML = `<i class="fa-solid fa-user"></i>`
+    }
 }
 
 function showUser(data) {
     const boxUser = $('.box-user')
-    console.log(sender_id)
     if (sender_id) {
         boxUser.innerHTML = `<div class="box-user">
                         <p>${data[0].name}</p>
@@ -328,6 +290,7 @@ function mess() {
                 fetch(`http://127.0.0.1:8000/api/messenger/${receiver_id}`)
                     .then(response => response.json())
                     .then(data => {
+                        data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
                         const nameMess = $('.privacy-dialog .name')
                         const imgMess = $('.privacy-dialog img')
                         console.log(element.getAttribute('data-receiver-id'))
@@ -345,5 +308,7 @@ function mess() {
     });
 }
 
-listTopicPost()
+checkUser()
+mess()
 getBoxMessenger()
+export {mess} 

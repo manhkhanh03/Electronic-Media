@@ -1,10 +1,14 @@
 #categories {
     font-size: 30px;
-    padding-top: 30px;
+    /* padding-top: 30px; */
 }
 
 .list-post {
     position: relative;
+}
+
+.post-right {
+    padding-top: 70px;
 }
 
 .list-post::after {
@@ -33,6 +37,15 @@
     position: absolute;
     top: 0;
     left: -3px;
+}
+
+.post-item a {
+    min-width: 34%;
+    flex-basis: 36%;
+}
+
+.post-item .img-post {
+    width: 100%;
 }
 
 .post-right h3 {

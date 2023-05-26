@@ -16,6 +16,7 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        'default' => env('SESSION_DRIVER', 'database'),
     ],
 
     /*
@@ -38,6 +39,10 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
+            'driver' => 'token',
             'provider' => 'users',
         ],
     ],

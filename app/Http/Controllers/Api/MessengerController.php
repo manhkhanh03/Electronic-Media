@@ -38,18 +38,16 @@ class MessengerController extends Controller
     public function show(string $id)
     {
         $data_sender_id = Messenger::join('users', 'users.id', '=', 'messengers.receiver_id')
-            ->join('images', 'images.mode_id', '=', 'messengers.receiver_id')
+            ->join('image_users', 'image_users.user_id', '=', 'messengers.receiver_id')
             ->where('sender_id', $id)
-            ->where('images.type', 0)
-            ->select('messengers.*', 'users.name', 'images.url')
+            ->select('messengers.*', 'users.name', 'image_users.url')
             ->orderBy('created_at')
             ->get();
 
         $data_receiver_id = Messenger::join('users', 'users.id', '=', 'messengers.sender_id')
-            ->join('images', 'images.mode_id', '=', 'messengers.sender_id')
+            ->join('image_users', 'image_users.user_id', '=', 'messengers.sender_id')
             ->where('receiver_id', $id)
-            ->where('images.type', 0)
-            ->select('messengers.*', 'users.name', 'images.url')
+            ->select('messengers.*', 'users.name', 'image_users.url')
             ->orderBy('created_at')
             ->get();
         

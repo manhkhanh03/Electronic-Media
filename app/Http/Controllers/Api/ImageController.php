@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\ImagePost;
 
-class UserController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $img = ImagePost::create($request->all());
+        return response()->json($img, 200, ['OK']);
     }
 
     /**
@@ -29,11 +30,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $data = User::join('image_users', 'user_id', '=', 'users.id')
-            ->where('user_id', $id)
-            ->select('users.*', 'image_users.user_id', 'image_users.url')
-            ->get();
-        return response()->json($data, 200, ['OK']);
+        //
     }
 
     /**
