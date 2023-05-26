@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_role_id');
-            $table->unsignedBigInteger('login_id');
-            $table->string('name', 100)->charset('utf8mb4')->collation('utf8mb4_unicode_ci');
-            $table->string('address', 100)->nullable()->charset('utf8mb4')->collation('utf8mb4_unicode_ci');
-            $table->string('phone', 100)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('users', function (Blueprint $table) {
+        //     // $table->id();
+        //     // $table->unsignedBigInteger('user_role_id');
+        //     // $table->unsignedBigInteger('login_id');
+        //     // $table->string('name', 100)->charset('utf8mb4')->collation('utf8mb4_unicode_ci');
+        //     // $table->string('address', 100)->nullable()->charset('utf8mb4')->collation('utf8mb4_unicode_ci');
+        //     // $table->string('phone', 100)->nullable();
+        //     // $table->string('email', 100)->nullable();
+        //     // $table->timestamps();
+        // });
     }
 
     /**
