@@ -13,7 +13,7 @@ return new class extends Migration
     {
         DB::unprepared('CREATE TRIGGER tr_Image_Default AFTER INSERT ON `users` FOR EACH ROW
             BEGIN
-                INSERT INTO images (`mode_id`, `url`, `type`) VALUES ( NEW.id, "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg", 0);
+                INSERT INTO image_users (`user_id`, `url`) VALUES ( NEW.id, "https://st.quantrimang.com/photos/image/2017/04/08/anh-dai-dien-FB-200.jpg");
             END
         ');
     }
