@@ -1,25 +1,21 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-const urlParams = new URLSearchParams(window.location.search);
+// const urlParams = new URLSearchParams(window.location.search);
+var sender_id;
+fetch('http://127.0.0.1:8000/api/login/user/id')
+    .then(response => response.json())
+    .then(id => {
+        sender_id = id.id
+    })
 
-let sender_id = urlParams.get('id');
 function checkUser() {
     if (sender_id) {
         fetch(`http://127.0.0.1:8000/api/user/${sender_id}`)
             .then(response => response.json())
             .then(data => {
-                showUser(data)
-            })
-            .catch(err => { console.log(err) })
-    } else {
-        $('.box-user').innerHTML = `<i class="fa-solid fa-user"></i>`
-    }
-}
-
-function showUser(data) {
-    const boxUser = $('.box-user')
-    if (sender_id) {
-        boxUser.innerHTML = `<div class="box-user">
+                console.log(data);
+                const boxUser = $('.box-user')
+                boxUser.innerHTML = `<div class="box-user">
                         <p>${data[0].name}</p>
                         <img src="${data[0].url}" alt="">
                         <ul class="box-logout" style="display: none;">
@@ -27,8 +23,10 @@ function showUser(data) {
                             <li>Logout</li>
                         </ul>
                     </div>`
+            })
+            .catch(err => { console.log(err) })
     } else {
-        boxUser.innerHTML = `<i class="fa-solid fa-user"></i>`
+        $('.box-user').innerHTML = `<i class="fa-solid fa-user"></i>`
     }
 }
 

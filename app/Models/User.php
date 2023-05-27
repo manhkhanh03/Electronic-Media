@@ -43,9 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 
     public function role()
     {
         return $this->belongsTo(Role::class, 'user_role_id');
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        return $this->role->permissions()->where('name', $permission)->exists();
     }
 
     // public function setPasswordAttribute($password)

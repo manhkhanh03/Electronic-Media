@@ -9,7 +9,7 @@ function handleLogin() {
     const password = $('#password').value
 
     const data = {
-        name: name,
+        username: name,
         password: password
     }
     const options = {
@@ -22,11 +22,11 @@ function handleLogin() {
     fetch('http://127.0.0.1:8000/api/login/checkLogin', options)
         .then((response) => response.json())
         .then((data) => {
-            user = data;
+            console.log(data)
             if (data.status)
                 $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Tên đăng nhập hoặc mật khẩu không khớp</p>'
             else 
-                window.location.href = 'index?id=' + data.id;
+                window.location.href = '/index/index';
 
         })
 }
@@ -36,5 +36,3 @@ if (login) {
         handleLogin()
     })
 }
-
-export { user };

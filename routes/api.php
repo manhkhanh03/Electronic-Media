@@ -48,3 +48,5 @@ Route::prefix('articles')->group(function () {
     Route::delete('/{id}', 'App\Http\Controllers\Api\ArticleController@destroy');
     Route::get('/categories/{id}', 'App\Http\Controllers\Api\ArticleController@showCategories');
 });
+
+Route::get('test/{post}/edit', 'App\Http\Controllers\Api\ArticleController@edit');

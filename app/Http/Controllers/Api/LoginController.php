@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Login;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -44,42 +46,35 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // session_start();
-        $user = Login::where('username', $request->input('name'))
-            // ->orWhere('email', $request->input('name'))
-            ->where('password', $request->input('password'))
-            ->first();
+        $credentials = $request->only('username', 'password');
 
-        // if ($user && Hash::check($request->input('password'), $user->password)) {
-        if($user) {
-            // session()->put('user_id', $user->id);
-            session(['user_id', $user->id]);
-            session()->save();
-            return response()->json( $user, 200);
-        }
-        else 
+        if ($this->authenticate($credentials)) {
+            $user = $this->getUserByUsername($credentials['username']);
+            $request->session()->put('user', $user);
+            return response()->json($user, 200, ['OK']);
+            // return redirect('/index/index');
+        } else {
             return response()->json(['status' => 'failed'], 401);
+        }
     }
 
-    public function idUser () {
-        $user = auth()->user(); 
+    public function idUser(Request $request) {
+        $user = $request->session()->get('user');
         if($user)
             return response()->json(['id' => $user->id], 200);
-        else
-            return response()->json(['status' => 'failed'], 401);
-            
-            
-        // $user_id = session()->get('user_id');
+        return response()->json(['status' => 'failed'], 401);        
     }
 
-    public function authenticate(Request $request)
+    private function authenticate($credentials)
     {
-        $credentials = $request->only('email', 'password');
+        return Login::where('username', $credentials['username'])
+                    ->where('password', $credentials['password'])
+                    ->exists();
+    }
 
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('home');
-        }
+    private function getUserByUsername($username)
+    {
+        return Login::where('username', $username)->first();
     }
 
     /**

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Login extends Model
+class Permission extends Model
 {
     use HasFactory;
-    protected $fillable = ['username', 'password', 'email'];
-
-    
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

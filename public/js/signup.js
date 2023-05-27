@@ -29,7 +29,7 @@ function isSign() {
                     .then(data => data.json())
                     .then((data) => {
                             if(!data.status)
-                                window.location.href = '/login'
+                                window.location.href = '/index/login'
                             else $('.noti-fail').innerHTML = '<p style="text-align: center; padding: 10px 0; color: red;">Tên đăng nhập đã tồn tại</p>'
                     })
                     .catch(err => { 

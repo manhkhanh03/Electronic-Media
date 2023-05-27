@@ -43,7 +43,7 @@
                     <p>Google</p>
                 </div>
             </div>
-            <p class="signup">Not a member? <u><a href="{{ url('http://127.0.0.1:8000/signup') }}">Sign up now</a></u></p>
+            <p class="signup">Not a member? <u><a href="{{ url('http://127.0.0.1:8000/index/signup') }}">Sign up now</a></u></p>
         </div>
     </div>
     <script type="module" src="/js/login.js"></script>

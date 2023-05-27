@@ -65,7 +65,7 @@
         <nav class="nav">
             <ul class="list-nav">
                 <li class="nav-item">
-                    <a href="{{ url('http://127.0.0.1:8000/home/index/index') }}">Home</a>
+                    <a href="{{ url('http://127.0.0.1:8000/index/index') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('http://127.0.0.1:8000/home/Thế giới') }}">Thế giới</a>

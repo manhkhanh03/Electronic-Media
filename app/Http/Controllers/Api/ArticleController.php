@@ -17,6 +17,15 @@ class ArticleController extends Controller
         //
     }
 
+    public function edit(Request $request, Article $article)
+    {
+        if ($request->user()->hasPermission('editor') || $request->user()->hasPermission('admin')) {
+            return true;
+        } else {
+            abort(403, 'Unauthorized');
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
