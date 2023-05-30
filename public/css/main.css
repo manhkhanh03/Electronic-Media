@@ -28,47 +28,23 @@ a {
 
 @keyframes display {
     0% {
-        right: -100%;
+        right: -10%;
     }
 
-    10% {
-        right: -82%;
-    }
-
-    20% {
-        right: -72%;
-    }
-
-    30% {
-        right: -62%;
-    }
-
-    40% {
-        right: -52%;
+    25% {
+        right: -8%;
     }
 
     50% {
-        right: -42%;
+        right: -4%;
     }
 
-    60% {
-        right: -32%;
-    }
-
-    70% {
-        right: -22%;
-    }
-
-    80% {
-        right: -12%;
-    }
-
-    90% {
+    75% {
         right: 2%;
     }
 
     100% {
-        right: 8%;
+        right: 42px;
     }
 }
 
@@ -441,6 +417,7 @@ menu {
     text-align: right;
     position: sticky;
     bottom: 20px;
+    /* overflow: hidden; */
 }
 
 .messenger i {
@@ -471,6 +448,32 @@ menu {
     right: 0;
     bottom: 46px;
 
+}
+
+.box-icon-mess {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.box-permission {
+    position: absolute;
+    right: -100px;
+    top: 0;
+    display: none;
+    width: max-content;
+    padding: 0 10px;
+    background-color: #000;
+    border-radius: 6px;
+    color: #fff;
+    height: 100%;
+    align-items: center;
+}
+
+.box-permission i {
+    margin: 0 4px;
+    font-size: 22px;
 }
 
 .header-mess {

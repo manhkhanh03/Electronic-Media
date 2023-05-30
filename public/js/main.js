@@ -1,19 +1,28 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 // const urlParams = new URLSearchParams(window.location.search);
-var sender_id;
+let login_id;
+let role_id = 0;
 fetch('http://127.0.0.1:8000/api/login/user/id')
     .then(response => response.json())
     .then(id => {
-        sender_id = id.id
+        console.log(id)
+        if (id)
+            login_id = id.id
+        else login_id = null
+        console.log("login_id", login_id);
+    })
+    .then(() => {
+        checkUser()
     })
 
 function checkUser() {
-    if (sender_id) {
-        fetch(`http://127.0.0.1:8000/api/user/${sender_id}`)
+    if (login_id) {
+        fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                role_id = data[0].user_role_id;
+                console.log(role_id);
                 const boxUser = $('.box-user')
                 boxUser.innerHTML = `<div class="box-user">
                         <p>${data[0].name}</p>
@@ -24,9 +33,13 @@ function checkUser() {
                         </ul>
                     </div>`
             })
+            .then(() => {
+                permission()
+            })
             .catch(err => { console.log(err) })
     } else {
-        $('.box-user').innerHTML = `<i class="fa-solid fa-user"></i>`
+        permission()
+        $('.box-user').innerHTML = `<a href="http://127.0.0.1:8000/index/login"><i class="fa-solid fa-user"></i></a>`
     }
 }
 
@@ -44,7 +57,7 @@ function addMessage(text) {
 function handlingMessageDisplay(data, dialogBoxPrivacy, receiver_id) {
     let htmls = data.map((ele) => {
         if (receiver_id == ele.receiver_id || receiver_id == ele.sender_id) {
-            if (sender_id == ele.sender_id && receiver_id == ele.receiver_id)
+            if (login_id == ele.sender_id && receiver_id == ele.receiver_id)
                 return `<li class="box-dialog-box-privacy" data-id-mess="${ele.id}">
                             <div class="me">${ele.content}
                                 <div class="mess-hover">
@@ -53,7 +66,7 @@ function handlingMessageDisplay(data, dialogBoxPrivacy, receiver_id) {
                                 </div>
                             </div>
                             </li>`
-            else if (sender_id == ele.receiver_id && receiver_id == ele.sender_id)
+            else if (login_id == ele.receiver_id && receiver_id == ele.sender_id)
                 return `<li class="box-dialog-box-privacy"><p class="you">${ele.content}</p></li>`
         }
     }).join('')
@@ -94,18 +107,18 @@ function handleMess(data) {
 
 function getBoxMessenger() {
     const item = $('.item-mess');
-    if (!sender_id) {
+    if (!login_id) {
         item.innerHTML = `
                         <div class="none">Không có tin nhắn nào <br> Hãy đăng nhập để sử dụng tính năng nhắn tin</div>
            `
         handleLoad()
     } else {
-        fetch(`http://127.0.0.1:8000/api/messenger/${sender_id}`)
+        fetch(`http://127.0.0.1:8000/api/messenger/${login_id}`)
             .then(response => response.json())
             .then(data => {
                 data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
                 const htmls = handleMess(data).map(messenger => {
-                    if (messenger.receiver_id != sender_id)
+                    if (messenger.receiver_id != login_id)
                         return `<div class="dialogbox" data-id="${messenger.receiver_id}">
                             <img src="${messenger.url}" alt="">
                             <div class="info-mess">
@@ -166,7 +179,7 @@ function postMessenger(inputValue) {
     const receiver_id = dialogBoxPrivacy.getAttribute('data-receiver-id')
     if (inputValue.value.trim() != '') {
         const data = {
-            sender_id: sender_id,
+            sender_id: login_id,
             receiver_id: receiver_id,
             content: inputValue.value
         }
@@ -177,6 +190,7 @@ function postMessenger(inputValue) {
             },
             body: JSON.stringify(data)
         }
+        console.log(data)
         fetch(`http://127.0.0.1:8000/api/messenger`, options)
             .then(() => {
                 let htmls = dialogBoxPrivacy.innerHTML;
@@ -224,7 +238,6 @@ function delMess() {
     })
 }
 
-
 function showElement(element) {
     element.style.display = 'block';
 }
@@ -261,7 +274,7 @@ function handleLoad() {
         }
     });
 
-    if (sender_id) {
+    if (login_id) {
         prev.onclick = () => {
             hideElement(privacyDialog)
             showElement(itemMess)
@@ -283,7 +296,7 @@ function mess() {
     btnMess.forEach((element, index) => {
         element.addEventListener('click', () => {
             const receiver_id = element.getAttribute('data-receiver-id')
-            if (receiver_id != sender_id) {
+            if (receiver_id != login_id) {
                 $('.box-mess').style.display = 'block';
                 fetch(`http://127.0.0.1:8000/api/messenger/${receiver_id}`)
                     .then(response => response.json())
@@ -306,7 +319,70 @@ function mess() {
     });
 }
 
-checkUser()
-mess()
-getBoxMessenger()
+function permission() {
+    const boxIcon = $('.box-icon-mess')
+    console.log(boxIcon, role_id)
+    switch (role_id) {
+        case 4:
+            boxIcon.innerHTML = `
+                            <i class="fa-brands fa-facebook-messenger"></i>
+                           `
+            break;
+        case 5:
+            boxIcon.innerHTML = `
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <div class="box-permission">
+                                <i class="fa-brands fa-facebook-messenger"></i>
+                                <i class="fa-solid fa-pen-nib"><a href=""></a></i>
+                            </div>
+                           `
+            break;
+        case 6:
+            boxIcon.innerHTML = `
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <div class="box-permission">
+                                <i class="fa-brands fa-facebook-messenger"></i>
+                                <i class="fa-solid fa-pen-nib"><a href=""></a></i>
+                                <i class="fa-solid fa-list-check"><a href=""></a></i>
+                            </div>
+                           `
+            break;
+    }
+    if (role_id == 5 || role_id == 6)
+        eventPermission()
+    mess()
+    getBoxMessenger()
+    handleLoad()
+}
+
+function handleClass(add, classAdd, classRemove) {
+    add.classList.add(classAdd)
+    add.classList.remove(classRemove)
+}
+
+function eventPermission() {
+    let add = $('.fa-circle-plus')
+    const per = $('.box-permission')
+    if (add) {
+        add.onclick = () => {
+            per.style.display = 'flex'
+            per.style.animation = 'display .25s linear'
+            per.style.right = '42px'
+            handleClass(add, 'fa-circle-minus', 'fa-circle-plus')
+            eventPermission()
+        }
+    }
+    else {
+        add = $('.fa-circle-minus')
+        add.onclick = () => {
+            // per.style.animation = 'display .25s ease'
+            // per.style.animationDirection = 'reverse'
+            per.style.right = '-0%'
+            handleClass(add, 'fa-circle-plus', 'fa-circle-minus')
+            per.style.display = 'none'
+            eventPermission()
+        }
+    }
+}
+
 export {mess} 

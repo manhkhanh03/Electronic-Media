@@ -27,3 +27,5 @@ Route::get('index/editer/write_article/{id?}', 'App\Http\Controllers\ElectronicM
 Route::get('home/{fun}/{id}', 'App\Http\Controllers\ElectronicMediaController@showCategories');
 
 Route::get('index/article/{id}', 'App\Http\Controllers\ElectronicMediaController@showArticle');
+
+

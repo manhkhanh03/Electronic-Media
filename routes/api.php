@@ -30,9 +30,9 @@ Route::prefix('messenger')->group(function () {
 Route::prefix('login')->group(function () {
     Route::get('', 'App\Http\Controllers\Api\LoginController@index');
     Route::get('/{id}', 'App\Http\Controllers\Api\LoginController@show');
-    Route::get('/user/id', 'App\Http\Controllers\Api\LoginController@idUser');
     Route::post('/checkLogin', 'App\Http\Controllers\Api\LoginController@login');
     Route::post('', 'App\Http\Controllers\Api\LoginController@store');
+    Route::get('/user/id', 'App\Http\Controllers\Api\LoginController@idUser');
 });
 
 Route::prefix('user')->group(function () {
@@ -48,5 +48,11 @@ Route::prefix('articles')->group(function () {
     Route::delete('/{id}', 'App\Http\Controllers\Api\ArticleController@destroy');
     Route::get('/categories/{id}', 'App\Http\Controllers\Api\ArticleController@showCategories');
 });
+
+// Route::middleware('jwt.auth')->group(function () {
+//     // Các route cần xác thực ở đây
+    
+// });
+
 
 Route::get('test/{post}/edit', 'App\Http\Controllers\Api\ArticleController@edit');

@@ -87,10 +87,14 @@
                 <li class="nav-item other">
                     <p>...</p>
                     <ul class="list-other">
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Pháp luật/7') }}">Pháp luật</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Giáo dục/8') }}">Giáo dục</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/An ninh/9') }}">An ninh</a></li>
-                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Sức khỏe/10') }}">Sức khỏe</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Pháp luật/7') }}">Pháp
+                                luật</a></li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Giáo dục/8') }}">Giáo dục</a>
+                        </li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/An ninh/9') }}">An ninh</a>
+                        </li>
+                        <li class="other-item"><a href="{{ url('http://127.0.0.1:8000/home/Sức khỏe/10') }}">Sức
+                                khỏe</a></li>
                     </ul>
                 </li>
             </ul>
@@ -114,8 +118,47 @@
                 </div>
                 <div class="post-right">
                     <img src="/img/somany.jpg" alt="" class="banner-post">
-                    <ul class="list-post-topic"></ul>
+                    <ul class="list-post-topic">
+                        {{-- @php
+                            use GuzzleHttp\Client;
+                            $client = new Client();
+                            $response = $client->get('http://127.0.0.1:8000/api/articles/hot_0'); 
+                            // $posts = json_decode($response->getBody()->getContents(), true);
+                            // print_r($posts);
+                        //     foreach ($posts as $index => $post) {
+                        //         if ($index <= 7) {
+                        // @endphp
+                        //             <li class="topic-item">
+                        //                 <a href="http://127.0.0.1:8000/index/article/{{ $post['id'] }}">
+                        //                     <img src="{{ $post['image'] }}" alt="">
+                        //                 </a>
+                        //                 <div class="information-post-right">
+                        //                     <a href="http://127.0.0.1:8000/index/article/{{ $post['id'] }}">
+                        //                         <h3>{{ $post['title'] }}</h3>
+                        //                     </a>
+                        //                     <div class="info-author">
+                        //                         <div class="author">
+                        //                             <img src="{{ $post['author'][0]['url'] }}" alt="" class="img-author">
+                        //                             <p class="name-author">
+                        //                                 {{ $post['author'][0]['name'] }}
+                        //                             </p>
+                        //                             <p class="date-time">{{ $post['created_at'] }}</p>
+                        //                             <div class="contact-author">
+                        //                                 <img src="{{ $post['author'][0]['url'] }}" alt="">
+                        //                                 <p class="name-author">{{ $post['author'][0]['name'] }}</p>
+                        //                                 <button class="mess-author" data-receiver-id="{{ $post['user_id'] }}">Nhắn tin</button>
+                        //                             </div>
+                        //                         </div>
+                        //                     </div>
+                        //                 </div>
+                        //             </li>
+                        // @php
+                        //         }
+                        //     }
+                        @endphp--}}
+                    </ul>
                 </div>
+
             </div>
             <div class="messenger">
                 <div class="box-icon-mess">

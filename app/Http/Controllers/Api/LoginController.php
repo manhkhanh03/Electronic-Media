@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -49,20 +50,24 @@ class LoginController extends Controller
         $credentials = $request->only('username', 'password');
 
         if ($this->authenticate($credentials)) {
-            $user = $this->getUserByUsername($credentials['username']);
-            $request->session()->put('user', $user);
-            return response()->json($user, 200, ['OK']);
-            // return redirect('/index/index');
+            $infoLogin = $this->getUserByUsername($credentials['username']);
+            // Cookie::make('id', $infoLogin->id);
+            // $request->session()->put('user', $infoLogin);
+            $response = response()->json($infoLogin, 200, ['OK']);
+            $response->withCookie(Cookie::make('id', $infoLogin->id));
+            return $response;
+            // return response()->json($request->session()->get('user'), 200, ['OK']);
+            // return redirect()->to('/index/index');
         } else {
             return response()->json(['status' => 'failed'], 401);
         }
     }
 
     public function idUser(Request $request) {
-        $user = $request->session()->get('user');
+        $user = $request->cookie('id');
         if($user)
-            return response()->json(['id' => $user->id], 200);
-        return response()->json(['status' => 'failed'], 401);        
+            return response()->json(['id' => $user], 200);
+        return response()->json(['status' => 'failed'], 200);        
     }
 
     private function authenticate($credentials)
