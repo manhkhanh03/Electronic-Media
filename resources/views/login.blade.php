@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('pattern')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+@section('title', 'Login')
+
+@push('styles')
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+@endpush
 
-<body>
+@push('login')
     <div class="container">
         <div class="box-info">
             <h1>LOGIN</h1>
@@ -46,7 +40,17 @@
             <p class="signup">Not a member? <u><a href="{{ url('http://127.0.0.1:8000/index/signup') }}">Sign up now</a></u></p>
         </div>
     </div>
-    <script type="module" src="/js/login.js"></script>
-</body>
+@endpush
 
-</html>
+@section('menu-nav-body')
+@endsection
+
+@section('footer')
+@endsection
+
+@section('codejs')
+@endsection
+
+@push('js')
+    <script src="/js/login.js"></script>
+@endpush

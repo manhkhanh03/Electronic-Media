@@ -1,0 +1,114 @@
+.title-info,
+input[name="checkbox-info"],
+input[name="checkbox-password"] {
+    font-size: 24px;
+    margin: 30px 0;
+}
+
+input[name="checkbox-info"],
+input[name="checkbox-password"] {
+    width: 18px;
+    height: 18px;
+}
+
+.box-personal-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-personal-info--img {
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.box-personal-info--img input[name="file-img"],
+.box-personal-info--img label {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    background-color: #e2e2e2;
+}
+
+.box-personal-info--img input[name="file-img"] {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.box-personal-info--img-name {
+    width: 36%;
+    text-align: center;
+}
+
+.box-personal-info--img-name img {
+    width: 190px;
+    height: 190px;
+    max-height: 200px;
+    border-radius: 50%;
+    border: 1px solid #d5d5d5;
+}
+
+.box-personal-info--name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.box-personal-info--name input {
+    margin: 20px;
+    font-size: 28px;
+    text-align: center;
+    border: #fff;
+    outline: none;
+}
+
+.box-personal-info--name input:focus {
+    border-bottom: 1px solid #b8b8b8;
+}
+
+
+.box-personal-info--name i {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+}
+
+.box-personal-info--contact {
+    width: 60%;
+}
+
+.box-personal-info--contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.box-personal-info--contact-info input {
+    width: 78%;
+    outline: none;
+    padding: 4px 10px;
+    border: 1px solid #b8b8b8;
+    border-radius: 3px;
+}
+
+.box-personal-info--contact-info p {
+    width: 18%;
+}
+
+button[type="submit"] {
+    width: 100px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+button[type="submit"]:hover {
+    background-color: #000;
+    color: #fff;
+}

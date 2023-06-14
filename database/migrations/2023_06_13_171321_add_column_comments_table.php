@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('image_users', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('user_id');
-        //     $table->longText('url');
-        //     $table->timestamps();
-        // });
+        Schema::table('comments', function (Blueprint $table) {
+            $table->BigInteger('parent_comment_id')->nullable();
+        });
     }
 
     /**
@@ -24,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_users');
+        //
     }
 };

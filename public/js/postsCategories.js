@@ -1,7 +1,7 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+// const $ = document.querySelector.bind(document)
+// const $$ = document.querySelectorAll.bind(document)
 const cateId = $('#categories').getAttribute('data-cate-id')
-import {mess} from './main.js'
+// import {mess} from './main.js'
 
 function showListPosts() {
     fetch(`http://127.0.0.1:8000/api/articles/categories/${cateId}`)
@@ -12,7 +12,7 @@ function showListPosts() {
                         <li class="post-item" data="">
                             <div class="post-item-div">
                                 <div class="information-post">
-                                    <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                                    <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                                         <h3>${post.title}</h3>
                                         <p>${post.subheadline}</p>
                                     </a>
@@ -31,7 +31,7 @@ function showListPosts() {
                                         </div>
                                     </div>
                                 </div>
-                                <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                                <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                                     <img class="img-post" src="${post.image}" alt="">
                                 </a>
                             </div>

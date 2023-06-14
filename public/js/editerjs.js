@@ -1,8 +1,22 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+// const $ = document.querySelector.bind(document)
+// const $$ = document.querySelectorAll.bind(document)
+// import { getUser } from "./main.js"
+
+function checkRoleEditer() {
+    fetch('http://127.0.0.1:8000/api/role')
+        .then(response => response.json())
+        .then(role => {
+            console.log(role)
+            if (role.role === 'reader')
+                location.href = 'http://127.0.0.1:8000/index/index'
+        })
+}
+
+checkRoleEditer()
 
 const article_id = $('main').getAttribute('data-article')
 let editers
+console.log(user_id)
 
 function editer(blocks) {
     const editorConfig = new EditorJS({
@@ -149,7 +163,9 @@ function editArticle() {
 
 function myFunction(status_id) {
     let categorie = $('#text-item').getAttribute('data-categorie');
-    const user_id = 2
+    // const user_id = user_id;
+
+    console.log(user_id)
     if (categorie && user_id) {
         console.log(editers)
         editers.save()
@@ -175,9 +191,9 @@ function myFunction(status_id) {
                 fetch(url, options)
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
                         confirm('Đăng bài thành công!');
-                        window.location.href = `http://127.0.0.1:8000/index/article/${data.id}`
+                        if(data.data_article[0].data.level == 1)
+                            window.location.href = `http://127.0.0.1:8000/index/article/${data.data_article[0].data.text}/${data.id}`
                     })
                     .catch(err => {
                         console.log(err);
@@ -225,6 +241,7 @@ function start() {
                 if (result)
                     myFunction(1)
             } else {
+                console.log(user_id)
                 let result = confirm('Bạn có chắc muốn đăng bài viết này?')
                 if (result) 
                     myFunction(2)

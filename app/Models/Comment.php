@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Login extends Model
+class Comment extends Model
 {
     use HasFactory;
-    protected $fillable = ['username', 'password', 'email'];
+    protected $fillable = ['user_id', 'article_id', 'content', 'parent_comment_id'];
 }

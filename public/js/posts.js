@@ -1,6 +1,6 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
-import { mess } from "./main.js";
+// const $ = document.querySelector.bind(document)
+// const $$ = document.querySelectorAll.bind(document)
+// import { mess } from "./main.js";
 
 function listTopicPost() {
     let url;
@@ -53,7 +53,7 @@ function postHost() {
         .then(data => {
             let htmls = `
             <div class="post-1" data-article-id="${data[0].id}">
-                <a href="http://127.0.0.1:8000/index/article/${data[0].id}">
+                <a href="http://127.0.0.1:8000/index/article/${data[0].title}/${data[0].id}">
                     <img src="${data[0].image}" alt="">
                     <h3>${data[0].title}</h3>
                     <p>${data[0].subheadline}</p>
@@ -76,10 +76,10 @@ function postHost() {
             
             <div class="post-2">`
             htmls += data.map((value, index) => {
-                if (value.hot_id == 2 && index <= 2) {
+                if (index >= 1 &&  index <= 2) {
                     return `
                         <div class="box-post-2" data-article-id="${value.id}">
-                            <a href="http://127.0.0.1:8000/index/article/${value.id}">
+                            <a href="http://127.0.0.1:8000/index/article/${value.title}/${value.id}">
                                 <img src="${value.image}" alt="">
                                 <h5>${value.title}</h5>
                                 <p>${value.subheadline}</p>
@@ -118,7 +118,7 @@ function listPost() {
             let htmls = posts.map(post => `
             <li class="post-item" data-theme-type="${post.categorie_id}" data-article-id="${post.id}">
                     <div class="post-item-div">
-                        <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                        <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                             <img class="img-post" src="${post.image}" alt="">
                         </a>
                         <div class="information-post">
@@ -176,10 +176,12 @@ function setBtnlistPost() {
 
 }
 
+
+
 function start() {
     postHost()
     listPost()
-    listTopicPost()
+    listTopicPost()     
 }
 
 start()

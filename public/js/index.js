@@ -1,10 +1,10 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+// const $ = document.querySelector.bind(document)
+// const $$ = document.querySelectorAll.bind(document)
 // import { user } from './login.js'
 const urlParams = new URLSearchParams(window.location.search);
 
 let sender_id = urlParams.get('id');
-export {sender_id}
+// export {sender_id}
 
 function showLogin() {
     const user = $('.fa-user')

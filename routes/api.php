@@ -33,15 +33,20 @@ Route::prefix('login')->group(function () {
     Route::post('/checkLogin', 'App\Http\Controllers\Api\LoginController@login');
     Route::post('', 'App\Http\Controllers\Api\LoginController@store');
     Route::get('/user/id', 'App\Http\Controllers\Api\LoginController@idUser');
+    Route::post('/check_pass/{id}', 'App\Http\Controllers\Api\LoginController@checkPassword');
+    Route::match(['put', 'patch'], '/{id}', 'App\Http\Controllers\Api\LoginController@update');
+    Route::get('/logout/user', 'App\Http\Controllers\Api\LoginController@handleLogout');
 });
 
 Route::prefix('user')->group(function () {
-    route::get('/{id}', 'App\Http\Controllers\Api\UserController@show');
+    Route::get('/{id}', 'App\Http\Controllers\Api\UserController@show');
+    Route::match(['put', 'patch'], '/{id}', 'App\Http\Controllers\Api\UserController@update');
 });
 
 Route::prefix('articles')->group(function () {
     Route::post('', 'App\Http\Controllers\Api\ArticleController@store');
     Route::get('/hot', 'App\Http\Controllers\Api\ArticleController@showPostHot');
+    Route::get('/status', 'App\Http\Controllers\Api\ArticleController@showPostByStatus');
     Route::get('/hot_0', 'App\Http\Controllers\Api\ArticleController@showPostHot_0');
     Route::get('/{id}', 'App\Http\Controllers\Api\ArticleController@showArticleById');
     Route::put('/{id}', 'App\Http\Controllers\Api\ArticleController@update');
@@ -53,6 +58,21 @@ Route::prefix('articles')->group(function () {
 //     // Các route cần xác thực ở đây
     
 // });
+Route::prefix('role')->group(function () {
+    Route::get('', 'App\Http\Controllers\Api\RoleController@role');
+    Route::get('/get', 'App\Http\Controllers\Api\RoleController@getRole');
+});
 
+Route::prefix('img')->group(function () {
+   Route::match(['put', 'patch'], '/{id}', 'App\Http\Controllers\Api\ImageController@update'); 
+});
 
-Route::get('test/{post}/edit', 'App\Http\Controllers\Api\ArticleController@edit');
+Route::prefix('comment')->group(function () {
+    Route::get('/{article_id}', 'App\Http\Controllers\Api\CommentController@show');
+    Route::post('', 'App\Http\Controllers\Api\CommentController@store');
+});
+
+Route::prefix('like')->group(function () {
+    Route::get('/{article_id}/{user_id}', 'App\Http\Controllers\Api\LikeController@show');
+    Route::post('', 'App\Http\Controllers\Api\LikeController@store');
+});

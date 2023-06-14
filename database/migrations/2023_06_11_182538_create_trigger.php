@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('image_users', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('user_id');
-        //     $table->longText('url');
-        //     $table->timestamps();
-        // });
+        DB::unprepared('CREATE TRIGGER tr_hots_Default AFTER INSERT ON `articles` FOR EACH ROW
+            BEGIN
+                INSERT INTO image_users (`article_id`) VALUES ( NEW.id);
+            END
+        ');
     }
 
     /**
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_users');
+        Schema::dropIfExists('trigger');
     }
 };

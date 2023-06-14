@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('image_users', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->unsignedBigInteger('user_id');
-        //     $table->longText('url');
-        //     $table->timestamps();
-        // });
+        Schema::create('hots', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('article_id');
+        });
     }
 
     /**
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_users');
+        Schema::dropIfExists('hots');
     }
 };

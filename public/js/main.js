@@ -1,42 +1,98 @@
+// const { hide } = require("@popperjs/core");
+
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 // const urlParams = new URLSearchParams(window.location.search);
 let login_id;
-let role_id = 0;
+let roleUser;
+let user_id;
 fetch('http://127.0.0.1:8000/api/login/user/id')
     .then(response => response.json())
     .then(id => {
-        console.log(id)
-        if (id)
-            login_id = id.id
-        else login_id = null
-        console.log("login_id", login_id);
+        login_id = id.id;
     })
     .then(() => {
-        checkUser()
-    })
+        return new Promise(async (resolve) => {
+            await checkUser();
+            resolve();
+        });
+    });
 
-function checkUser() {
-    if (login_id) {
+function getRole() {
+    fetch('http://127.0.0.1:8000/api/role')
+        .then(response => response.json())
+        .then(role => {
+            roleUser = role.role
+        })
+        .then(() => {
+            permission()
+        })
+}
+
+getRole()
+
+async function getUserId() {
+    return new Promise((resolve, reject) => {
         fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
             .then(response => response.json())
             .then(data => {
-                role_id = data[0].user_role_id;
-                console.log(role_id);
-                const boxUser = $('.box-user')
-                boxUser.innerHTML = `<div class="box-user">
+                user_id = data.id;
+                resolve(user_id);
+            })
+            .catch(error => reject(error));
+    });
+}
+
+async function getUser() {
+    fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
+        .then(response => response.json())
+        .then(data => {
+            user_id = data[0].id;
+            const boxUser = $('.box-user')
+            boxUser.innerHTML = `<div class="box-user">
                         <p>${data[0].name}</p>
                         <img src="${data[0].url}" alt="">
                         <ul class="box-logout" style="display: none;">
-                            <li>Sửa thông tin</li>
-                            <li>Logout</li>
+                            <li>
+                                <a href="http://127.0.0.1:8000/index/personalInformation">
+                                    <i class="fa-solid fa-user"></i>
+                                    Thông tin cá nhân
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa-solid fa-right-from-bracket item-logout"></i>
+                                    Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>`
+            const logout = $('.box-logout')
+            boxUser.addEventListener('click', () => {
+                logout.style.display = logout.style.display == 'none' ? 'block' : 'none';
             })
-            .then(() => {
-                permission()
-            })
-            .catch(err => { console.log(err) })
+
+            document.addEventListener('click', (event) => {
+                if (event.target.matches('.box-user') || event.target.closest('.box-user')) {
+                    return;
+                }
+                if (logout.style.display == 'block') {
+                    hideElement(logout)
+                }
+            });
+        })
+        .then(() => {
+            const logout = $('.box-logout li:nth-child(2)')
+            logout.addEventListener('click', () => {
+                handleLogout();
+             })
+        })
+        .catch(err => { console.log(err) })
+}
+
+async function checkUser() {
+    if (login_id) {
+        await getUser();
     } else {
         permission()
         $('.box-user').innerHTML = `<a href="http://127.0.0.1:8000/index/login"><i class="fa-solid fa-user"></i></a>`
@@ -249,10 +305,20 @@ function hideElement(element) {
 function handleLoad() {
     const mess = $('.fa-facebook-messenger')
     const boxMess = $('.box-mess');
-    
+
     mess.onclick = () => {
         boxMess.style.display = boxMess.style.display == 'none' ? 'block' : 'none';
     }
+
+    document.addEventListener('click', (event) => {
+        if (event.target.matches('.fa-facebook-messenger') || event.target.closest('.fa-facebook-messenger') || event.target.matches('.box-mess') || event.target.closest('.box-mess') || event.target.matches('.mess-author') || event.target.closest('.mess-author')) {
+            return;
+        }
+        if (boxMess.style.display == 'block') {
+            hideElement(boxMess);
+            hideElement($('.box-logout'))
+        }
+    });
 
     const dialogbox = $$('.dialogbox');
     const name = $$('.dialogbox .name')
@@ -262,7 +328,6 @@ function handleLoad() {
     const privacyDialog = $('.privacy-dialog')
     const itemMess = $('.item-mess')
     const prev = $('.fa-chevron-left')
-
     const sent = $('.fa-paper-plane')
 
     dialogbox.forEach((element, index) => {
@@ -292,11 +357,11 @@ function mess() {
     const btnMess = $$('.mess-author')
     const imgUrl = $$('.contact-author img')
     const nameAuthor = $$('.contact-author .name-author')
-    
+
     btnMess.forEach((element, index) => {
         element.addEventListener('click', () => {
             const receiver_id = element.getAttribute('data-receiver-id')
-            if (receiver_id != login_id) {
+            if (receiver_id != user_id) {
                 $('.box-mess').style.display = 'block';
                 fetch(`http://127.0.0.1:8000/api/messenger/${receiver_id}`)
                     .then(response => response.json())
@@ -314,41 +379,40 @@ function mess() {
                         $('.privacy-dialog').style.display = 'block';
                     })
             }
-            
         })
     });
 }
 
 function permission() {
     const boxIcon = $('.box-icon-mess')
-    console.log(boxIcon, role_id)
-    switch (role_id) {
-        case 4:
+    console.log(boxIcon, roleUser)
+    switch (roleUser) {
+        case 'reader':
             boxIcon.innerHTML = `
                             <i class="fa-brands fa-facebook-messenger"></i>
                            `
             break;
-        case 5:
+        case 'editer':
             boxIcon.innerHTML = `
                             <i class="fa-solid fa-circle-plus"></i>
                             <div class="box-permission">
                                 <i class="fa-brands fa-facebook-messenger"></i>
-                                <i class="fa-solid fa-pen-nib"><a href=""></a></i>
+                              <a href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
                             </div>
                            `
             break;
-        case 6:
+        case 'admin':
             boxIcon.innerHTML = `
                             <i class="fa-solid fa-circle-plus"></i>
                             <div class="box-permission">
                                 <i class="fa-brands fa-facebook-messenger"></i>
-                                <i class="fa-solid fa-pen-nib"><a href=""></a></i>
-                                <i class="fa-solid fa-list-check"><a href=""></a></i>
+                                <a href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
+                                <a href="http://127.0.0.1:8000/index/censorship"> <i class="fa-solid fa-list-check"></i></a>
                             </div>
                            `
             break;
     }
-    if (role_id == 5 || role_id == 6)
+    if (roleUser == "admin" || roleUser == "editer")
         eventPermission()
     mess()
     getBoxMessenger()
@@ -373,7 +437,7 @@ function eventPermission() {
         }
     }
     else {
-        add = $('.fa-circle-minus')
+        add = $('.fa-circle-minus') 
         add.onclick = () => {
             // per.style.animation = 'display .25s ease'
             // per.style.animationDirection = 'reverse'
@@ -385,4 +449,14 @@ function eventPermission() {
     }
 }
 
-export {mess} 
+function handleLogout() {
+    fetch('http://127.0.0.1:8000/api/login/logout/user')
+        .then(() => {
+            location.href = 'http://127.0.0.1:8000/index/login'
+        })
+        .catch(err => { 
+            console.log('error: ' + err)
+        })
+}
+
+// export { mess, getUser }

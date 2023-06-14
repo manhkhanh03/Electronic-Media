@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ImagePost;
+use App\Models\ImageUser;
 
 class ImageController extends Controller
 {
@@ -21,8 +21,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        $img = ImagePost::create($request->all());
-        return response()->json($img, 200, ['OK']);
+
     }
 
     /**
@@ -38,7 +37,9 @@ class ImageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $img = ImageUser::where('id', $id)->first();
+        $img->update($request->all());
+        return response()->json($img, 200);
     }
 
     /**

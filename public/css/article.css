@@ -1,3 +1,7 @@
+.active-emotion {
+    color: #ff0005;
+}
+
 .subheadline {
     padding: 20px 0;
     font-style: italic;
@@ -154,8 +158,10 @@
     font-weight: lighter;
 }
 
+/*  */
 .cm-item-feeling {
     display: flex;
+    position: relative;
 }
 
 .cm-item-feeling li {

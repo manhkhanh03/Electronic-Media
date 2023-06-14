@@ -3,27 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use App\Http\Controllers\Api\ArticleController;
 
 class ElectronicMediaController extends Controller
 {
-    // public function showHome() {
-    //     return view('home');
-    // }
+    public function callApiWithMethodPutOrPatch(Request $request, $api) {
+        return;
+    }
 
-    // public function showLogin() {
-    //     return view('login');
-    // }
+    public function callApiWithMethodDelete($api) {
 
-    // public function showSignup() {
-    //     return view('signup');
-    // }
+    }
 
-    // public function showIndex() {
-    //     return view('index');
-    // }
+    public function callApiWithMethodGet($api) {
+        // $client = new Client();
+        // $response = $client->request('GET', $api);
+        // $body = $response->getBody()->getContents();
+        // return $body;
 
-    public function show(string $address) {
+        $client = new Client();
+        $response = $client->get($api);
+        $data = json_decode($response->getBody());
+        return $data;
+    }
+
+    public function show($address) {
         return view($address);
+    }
+    
+    public function showIndex() {
+        return view('index')->with('posts_0', $this->callApiWithMethodGet('http://127.0.0.1:8000/api/articles/hot_0'));
     }
 
     public function showWriteArticle($id = null) {
@@ -38,8 +48,8 @@ class ElectronicMediaController extends Controller
     //     return view('write_articles');
     // }
 
-    public function showArticle(string $article_id) {
-        return view('article')->with(['article_id' => $article_id]);
+    public function showArticle($title, string $article_id) {
+        return view('article', ['title' => $title, 'article_id' => $article_id]);
     }
 
     // public function showArticle() {

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -51,20 +53,14 @@ class LoginController extends Controller
 
         if ($this->authenticate($credentials)) {
             $infoLogin = $this->getUserByUsername($credentials['username']);
-            // Cookie::make('id', $infoLogin->id);
-            // $request->session()->put('user', $infoLogin);
-            $response = response()->json($infoLogin, 200, ['OK']);
-            $response->withCookie(Cookie::make('id', $infoLogin->id));
-            return $response;
-            // return response()->json($request->session()->get('user'), 200, ['OK']);
-            // return redirect()->to('/index/index');
+            return response()->json($infoLogin, 200, ['OK'])->withCookie(Cookie::make('jKmLpNqRsTuVwXyZaBcD', $infoLogin->id));
         } else {
             return response()->json(['status' => 'failed'], 401);
         }
     }
 
     public function idUser(Request $request) {
-        $user = $request->cookie('id');
+        $user = $request->cookie('jKmLpNqRsTuVwXyZaBcD');
         if($user)
             return response()->json(['id' => $user], 200);
         return response()->json(['status' => 'failed'], 200);        
@@ -87,7 +83,9 @@ class LoginController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $login = Login::where('id', $id)->first();
+        $login->update($request->all());
+        return response()->json($login, 200);
     }
 
     /**
@@ -96,5 +94,22 @@ class LoginController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function checkPassword(Request $request, $id) {
+        $user = Login::where('id', $id)
+                    ->where('password', $request->password)
+                    ->get();
+        if($user->isEmpty()) 
+            return response()->json(['status' => 'false'], 200);
+        return response()->json(['status' => 'true'], 200);
+    }
+
+    public function handleLogout()  {
+        $response = new Response(view('login'));
+        $response->withCookie(Cookie::make('jKmLpNqRsTuVwXyZaBcD', null, 0));
+        $response->withCookie(Cookie::make('role', null, 0));
+
+        return $response;
     }
 }

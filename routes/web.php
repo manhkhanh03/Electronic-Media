@@ -21,11 +21,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Route::get('index/index', 'App\Http\Controllers\ElectronicMediaController@showIndex');
 Route::get('index/{address}', 'App\Http\Controllers\ElectronicMediaController@show');
 Route::get('index/editer/write_article/{id?}', 'App\Http\Controllers\ElectronicMediaController@showWriteArticle');
 
 Route::get('home/{fun}/{id}', 'App\Http\Controllers\ElectronicMediaController@showCategories');
 
-Route::get('index/article/{id}', 'App\Http\Controllers\ElectronicMediaController@showArticle');
+Route::get('index/article/{title}/{id}', 'App\Http\Controllers\ElectronicMediaController@showArticle');
 
 

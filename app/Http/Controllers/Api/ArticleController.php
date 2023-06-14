@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Hot;
 
 class ArticleController extends Controller
 {
@@ -15,15 +16,6 @@ class ArticleController extends Controller
     public function index()
     {
         //
-    }
-
-    public function edit(Request $request, Article $article)
-    {
-        if ($request->user()->hasPermission('editor') || $request->user()->hasPermission('admin')) {
-            return true;
-        } else {
-            abort(403, 'Unauthorized');
-        }
     }
 
     /**
@@ -43,14 +35,7 @@ class ArticleController extends Controller
         //
     }
 
-    public function showPost($hot) {
-        $posts = Article::whereIn('hot_id', $hot)
-                ->where('status_id', 3)
-                ->orderBy('hot_id', 'asc')
-                // ->orderBy('created_at', 'desc')
-                ->select()
-                ->get();
-        $posts = json_decode($posts);
+    public function handleData($posts) {
         $newPosts = [];
         foreach ($posts as $post) {
             array_push($newPosts, json_decode($post->JSON));
@@ -59,7 +44,6 @@ class ArticleController extends Controller
         foreach($newPosts as $index => $postss) {
             $obj = [];
             $obj['id'] = $posts[$index]->id;
-            $obj['hot_id'] = $posts[$index]->hot_id;
             $obj['author_id'] = $posts[$index]->author_id;
             $obj['categorie_id'] = $posts[$index]->categorie_id;
             $obj['author'] = $this->show_user($posts[$index]->author_id);
@@ -78,8 +62,19 @@ class ArticleController extends Controller
 
             array_push($new, $obj);
         }
-
         return $new;
+    }
+
+    public function showByPostOrByStatus($hot, $status) {
+        $posts = Article::join('hots', 'article_id', 'articles.id')
+                ->where('status_id', $status)
+                ->groupBy('articles.id', 'author_id', 'categorie_id')
+                ->havingRaw('count(*) >= '. $hot)
+                ->orderByRaw('COUNT(*) DESC')
+                ->select('articles.id', 'author_id', 'categorie_id', 'created_at', 'JSON', 'status_id')
+                ->get();
+        $posts = json_decode($posts);
+        return $this->handleData($posts);
     }
 
     public function showArticleById($id) {
@@ -108,35 +103,7 @@ class ArticleController extends Controller
                 ->select()
                 ->get();
         $posts = json_decode($posts);
-        $newPosts = [];
-        foreach ($posts as $post) {
-            array_push($newPosts, json_decode($post->JSON));
-        }
-        $new = [];
-        foreach($newPosts as $index => $postss) {
-            $obj = [];
-            $obj['id'] = $posts[$index]->id;
-            $obj['hot_id'] = $posts[$index]->hot_id;
-            $obj['author_id'] = $posts[$index]->author_id;
-            $obj['categorie_id'] = $posts[$index]->categorie_id;
-            $obj['author'] = $this->show_user($posts[$index]->author_id);
-            foreach ($postss as $key => $post) {
-                if ($post->type === 'header') {
-                    if ($post->data->level === 1) {
-                        $obj['title'] = $post->data->text;
-                    } else if ($post->data->level === 2) {
-                        $obj['subheadline'] = $post->data->text;
-                    }
-                } else if ($post->type === 'image') {
-                    $obj['image'] = $post->data->url;
-                }
-            }
-            $obj['created_at'] = $posts[$index]->created_at;
-
-            array_push($new, $obj);
-        }
-
-        return $new;
+        return $this->handleData($posts);
     }
 
     public function show_user($id) {
@@ -148,11 +115,15 @@ class ArticleController extends Controller
     }
 
     public function showPostHot() {
-        return response()->json($this->showPost([1, 2]), 200, ['OK']);
+        return response()->json($this->showByPostOrByStatus(15, 3), 200, ['OK']);
     }
 
     public function showPostHot_0() {
-        return response()->json($this->showPost([0, 2]), 200, ['OK']);
+        return response()->json($this->showByPostOrByStatus(0, 3), 200, ['OK']);
+    }
+
+    public function showPostByStatus() {
+        return response()->json($this->showByPostOrByStatus(0, 2), 200, ['OK']);
     }
 
     /**
