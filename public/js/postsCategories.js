@@ -4,9 +4,11 @@ const cateId = $('#categories').getAttribute('data-cate-id')
 // import {mess} from './main.js'
 
 function showListPosts() {
-    fetch(`http://127.0.0.1:8000/api/articles/categories/${cateId}`)
+    console.log(cateId)
+    fetch(`http://127.0.0.1:8000/api/articles/categories?categorie_id=${cateId}`)
         .then(response => response.json())
         .then(posts => {
+            console.log(posts)
             const listPost = $('.list-post')
             const htmls = posts.map((post) => `
                         <li class="post-item" data="">

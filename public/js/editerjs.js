@@ -2,18 +2,6 @@
 // const $$ = document.querySelectorAll.bind(document)
 // import { getUser } from "./main.js"
 
-function checkRoleEditer() {
-    fetch('http://127.0.0.1:8000/api/role')
-        .then(response => response.json())
-        .then(role => {
-            console.log(role)
-            if (role.role === 'reader')
-                location.href = 'http://127.0.0.1:8000/index/index'
-        })
-}
-
-checkRoleEditer()
-
 const article_id = $('main').getAttribute('data-article')
 let editers
 console.log(user_id)
@@ -130,7 +118,7 @@ function editer(blocks) {
 
 function editArticle() {
     // const article_id = $('main').getAttribute('data-article')
-    if (article_id) { 
+    if (article_id) {
         fetch(`http://127.0.0.1:8000/api/articles/${article_id}`)
             .then(response => response.json())
             .then(article => {
@@ -167,14 +155,12 @@ function myFunction(status_id) {
 
     console.log(user_id)
     if (categorie && user_id) {
-        console.log(editers)
         editers.save()
             .then(savedData => {
                 const data = {
                     author_id: user_id,
                     categorie_id: categorie,
                     JSON: JSON.stringify(savedData.blocks),
-                    hot_id: 0,
                     status_id: status_id
                 };
                 const options = {
@@ -184,16 +170,14 @@ function myFunction(status_id) {
                     },
                     body: JSON.stringify(data)
                 }
-                if (article_id) 
+                if (article_id)
                     options.method = 'PUT';
-                console.log(options);
                 const url = article_id ? `http://127.0.0.1:8000/api/articles/${article_id}` : 'http://127.0.0.1:8000/api/articles';
                 fetch(url, options)
                     .then(response => response.json())
                     .then(data => {
                         confirm('Đăng bài thành công!');
-                        if(data.data_article[0].data.level == 1)
-                            window.location.href = `http://127.0.0.1:8000/index/article/${data.data_article[0].data.text}/${data.id}`
+                        window.location.href = `http://127.0.0.1:8000/index/article/${data[0].title}/${data[0].id}`
                     })
                     .catch(err => {
                         console.log(err);
@@ -230,9 +214,9 @@ function handleEvent(categorie) {
 }
 
 function start() {
-    $$('.btn').forEach((btn, index) => { 
-        btn.onclick = () => { 
-            if (index === 0) { 
+    $$('.btn').forEach((btn, index) => {
+        btn.onclick = () => {
+            if (index === 0) {
                 let result = confirm('Bạn có chắc muốn xóa bài viết này?')
                 if (result)
                     window.location.href = 'http://127.0.0.1:8000/index/write_articles'
@@ -243,7 +227,7 @@ function start() {
             } else {
                 console.log(user_id)
                 let result = confirm('Bạn có chắc muốn đăng bài viết này?')
-                if (result) 
+                if (result)
                     myFunction(2)
             }
         }

@@ -10,7 +10,7 @@
 
 @section('menu-nav-body')
     @push('info-web')
-        <p id="status" style="width: 100%; text-align: center; font-size: 26px; margin: 30px 0"></p>
+        <p id="status" style="width: 100%; text-align: center; font-size: 26px; margin: 30px 0 0"></p>
         <div class="box-post" data-id-article="{{ $article_id }}">
             <h1 id="categories"></h1>
             <div class="posts">
@@ -21,63 +21,65 @@
                         <div style="width: 100%; height: 1px; background-color: var(--color); margin: 6px auto;">
                         </div>
                         <ul class="list-posts">
-                            <li class="post-item" data-theme-type="">
-                                <div class="post-item-div">
-                                    <img class="img-post" src="/img/hdbh.jpg" alt="">
-                                    <div class="information-post">
-                                        <h3>Động thái vô cùng bất ngờ của PSG với Messi</h3>
-                                        <p>- PSG đã bất ngờ xóa án phạt treo giò nội bộ với Messi. Điều đó có nghĩa
-                                            rằng, El Pulga có thể ra sân trong trận đấu với
-                                            Ajaccio vào đêm nay.</p>
-                                        <div class="info-author">
-                                            <div class="author">
-                                                <img src="${post.user_data[0].url_user}" alt="" class="img-author">
-                                                <p class="name-author">
-                                                    ${post.user_data[0].name}
-                                                </p>
-                                                <p class="date-time">${post.created_at}</p>
-                                                <div class="contact-author">
-                                                    <img src="${post.user_data[0].url_user}" alt="">
-                                                    <p class="name-author">${post.user_data[0].name}</p>
-                                                    <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn
-                                                        tin</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="post-item" data-theme-type="">
-                                <div class="post-item-div">
-                                    <img class="img-post" src="/img/hdbh.jpg" alt="">
-                                    <div class="information-post">
-                                        <h3>Động thái vô cùng bất ngờ của PSG với Messi</h3>
-                                        <p>- PSG đã bất ngờ xóa án phạt treo giò nội bộ với Messi. Điều đó có nghĩa
-                                            rằng, El Pulga có thể ra sân trong trận đấu với
-                                            Ajaccio vào đêm nay.</p>
-                                        <div class="info-author">
-                                            <div class="author">
-                                                <img src="${post.user_data[0].url_user}" alt="" class="img-author">
-                                                <p class="name-author">
-                                                    ${post.user_data[0].name}
-                                                </p>
-                                                <p class="date-time">${post.created_at}</p>
-                                                <div class="contact-author">
-                                                    <img src="${post.user_data[0].url_user}" alt="">
-                                                    <p class="name-author">${post.user_data[0].name}</p>
-                                                    <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn
-                                                        tin</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="post-right">
-                    <h3>Truy cập nhiều nhất</h3>
+                    <h3 class="header-most-accessed">Truy cập nhiều nhất</h3>
+                    <ul class="most-accessed">
+                        <li class="post-item" data-theme-type="${post.categorie_id}" data-article-id="${post.id}">
+                            <div class="post-item-div">
+                                <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
+                                    <img class="img-post" src="/img/ukuk.jpg" alt="">
+                                </a>
+                                <div class="information-post">
+                                    <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                                        <h3>Giá bitcoin giảm mạnh sau lỗi hệ thống của sàn Binance</h3>
+                                    </a>
+                                    <div class="info-author">
+                                        <div class="author">
+                                            <img src="${post.author[0].url}" alt="" class="img-author">
+                                            <p class="name-author">
+                                                Manh Khanh
+                                            </p>
+                                            <p class="date-time">5/25/2023, 12:14:11 AM</p>
+                                            <div class="contact-author">
+                                                <img src="${post.author[0].url}" alt="">
+                                                <p class="name-author">Manh Khanh</p>
+                                                <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="post-item" data-theme-type="${post.categorie_id}" data-article-id="${post.id}">
+                            <div class="post-item-div">
+                                <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
+                                    <img class="img-post" src="/img/ukuk.jpg" alt="">
+                                </a>
+                                <div class="information-post">
+                                    <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                                        <h3>Giá bitcoin giảm mạnh sau lỗi hệ thống của sàn Binance</h3>
+                                    </a>
+                                    <div class="info-author">
+                                        <div class="author">
+                                            <img src="${post.author[0].url}" alt="" class="img-author">
+                                            <p class="name-author">
+                                                Manh Khanh
+                                            </p>
+                                            <p class="date-time">5/25/2023, 12:14:11 AM</p>
+                                            <div class="contact-author">
+                                                <img src="${post.author[0].url}" alt="">
+                                                <p class="name-author">Manh Khanh</p>
+                                                <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -115,7 +117,7 @@
             <div class="comment-box">
             </div>
             <div class="write-comment">
-                <img src="/img/fb.jpg" alt="">
+                <img name="img-comment" src="https://bloganchoi.com/wp-content/uploads/2022/02/avatar-trang-y-nghia.jpeg" alt="">
                 <input type="text" name="content-comment" placeholder="Nhập bình luận...">
                 <i style="cursor: pointer" class="fa-regular fa-paper-plane sent-comment"></i>
             </div>

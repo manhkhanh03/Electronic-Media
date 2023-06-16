@@ -4,6 +4,15 @@
 
 @push('styles')
     <link rel="stylesheet" href="/css/censorship.css">
+    <script>
+        fetch('http://127.0.0.1:8000/api/role/get')
+        .then(response => response.json())
+        .then(role => {
+        console.log(role)
+        if (role.role === 'reader' || role.role === 'editor')
+        location.href = 'http://127.0.0.1:8000/index/index'
+        })
+    </script>
 @endpush
 
 @section('menu-nav-body')
@@ -18,7 +27,8 @@
                 <p class="column-heading">Tiêu đề</p>
                 <p class="column-heading">Thời gian</p>
                 <input type="text" name="column-search" id=""
-                    placeholder="Tìm kiếm tên bài viết hoặc tên tác giả...">
+                    placeholder="Tìm kiếm tên bài viết...">
+                <i class="fa-solid fa-magnifying-glass search-article-2"></i>
             </div>
             <div style="width: 100%; height: 2px; background-color: var(--color); margin: 0 0 30px 0;"></div>
 

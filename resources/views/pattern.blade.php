@@ -9,6 +9,9 @@
     @stack('styles')
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -101,7 +104,11 @@
                     </li>
                 </ul>
                 <div class="box-search">
-                    <input type="text" class="input-search" id="search" placeholder="Tìm kiếm bài viết...">
+                    <input type="text" name="input-search" class="input-search" id="search" placeholder="Tìm kiếm bài viết...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <div class="box-searched">
+                        <p>Không có bài viết nào!</p>
+                    </div>
                 </div>
             </nav>
 

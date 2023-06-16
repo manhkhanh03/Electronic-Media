@@ -4,6 +4,9 @@
 
 @push('styles')
     <link rel="stylesheet" href="/css/categories.css">
+    <style>
+        
+    </style>
 @endpush
 
 @section('menu-nav-body')
@@ -32,5 +35,4 @@
 
 @push('js')
     <script src="/js/postsCategories.js"></script>
-    <script src="/js/importUser.js"></script>
 @endpush

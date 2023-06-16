@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-    protected $fillable = ['author_id', 'categorie_id', 'JSON', 'hot_id', 'status_id'];
+    protected $fillable = ['author_id', 'categorie_id', 'JSON', 'status_id'];
 }

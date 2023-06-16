@@ -13,7 +13,7 @@ return new class extends Migration
     {
         DB::unprepared('CREATE TRIGGER tr_hots_Default AFTER INSERT ON `articles` FOR EACH ROW
             BEGIN
-                INSERT INTO image_users (`article_id`) VALUES ( NEW.id);
+                INSERT INTO hots (`article_id`) VALUES (NEW.id);
             END
         ');
     }

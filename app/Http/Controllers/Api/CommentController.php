@@ -44,9 +44,21 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        $cm = Comment::where('article_id', $id)
+        $cm = Comment::where('article_id', $request->article_id)
+                    ->whereRaw('parent_comment_id is null' )
+                    ->orderByRaw('created_at desc')
+                    ->get();
+                 
+        $cm = $cm->toArray();
+        return response()->json($this->getuser($cm), 200, ['OK']);
+    }
+
+    public function showParentComment(Request $request)
+    {
+        $cm = Comment::where('article_id', $request->article_id)
+                    ->whereRaw('parent_comment_id is not null' )
                     ->orderByRaw('created_at desc')
                     ->get();
                  

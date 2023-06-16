@@ -3,6 +3,7 @@
     justify-content: space-between;
     padding: 8px 10px;
     align-items: center;
+    position: relative;
 }
 
 .column .column-heading {
@@ -14,6 +15,7 @@
     width: 20px;
     height: 20px;
     margin-right: 20px;
+    transform: translate(10px, 3px);
 }
 
 .column .column-heading:nth-child(1),
@@ -41,6 +43,11 @@
     border-radius: 6px;
 }
 
+.column .search-article-2 {
+    position: absolute;
+    right: 1%;
+}
+
 .box-censorship-post {
     border: 1px solid var(--color);
     margin-bottom: 30px;
@@ -50,6 +57,7 @@
     width: 25px;
     height: 25px;
     margin-right: 8px;
+    border-radius: 50%;
 }
 
 .box-censorship-post .column-heading:nth-child(2),
@@ -77,8 +85,8 @@
 }
 
 .column-heading a {
-    border: 1px solid var(--color);
-    width: 36%;
+    /* border: 1px solid var(--color); */
+    width: 30%;
     height: 30px;
     display: flex;
     align-items: center;
@@ -86,15 +94,25 @@
 }
 
 
-.column-heading .btn {
+.column-heading .btn,
+.column-heading .btn-check{
     width: 100%;
+    height: 100%;
     outline: none;
     background-color: #ffffff00;
     border: none;
     cursor: pointer;
+    border: 1px solid var(--color);
+}
+
+.column-heading .btn {
+    width: 30%;
+    height: 30px;
 }
 
 .column-heading a:hover,
+.column-heading .btn:hover,
+.column-heading .btn-check:hover,
 .censorship-all .censhorship-all-posts:hover {
     color: #fff;
     background-color: #000;

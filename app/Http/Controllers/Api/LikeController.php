@@ -21,7 +21,8 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $like = Like::create($request->all());
+        return response()->json($like, 200, ['OK']);
     }
 
     /**
@@ -65,8 +66,13 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $likes = Like::where('user_id', $request->user_id)
+                    ->where('article_id', $request->article_id)
+                    ->get();
+        foreach ($likes as $like)
+            $like->delete();   
+        return response()->json($likes, 200);
     }
 }

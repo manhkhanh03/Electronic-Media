@@ -1,11 +1,7 @@
-// const $ = document.querySelector.bind(document)
-// const $$ = document.querySelectorAll.bind(document)
-// import { mess } from "./main.js";
-
 function listTopicPost() {
     let url;
     if ($('#categories'))
-        url = `http://127.0.0.1:8000/api/post/categories/${$('#categories').getAttribute('data-cate-id')}`
+        url = `http://127.0.0.1:8000/api/post/categories?categorie_id=${$('#categories').getAttribute('data-cate-id')}`
     else url = 'http://127.0.0.1:8000/api/articles/hot_0'
 
     fetch(url)
@@ -17,11 +13,11 @@ function listTopicPost() {
                 if (index <= 7)
                     return `
                     <li class="topic-item">
-                        <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                        <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                             <img src="${post.image}" alt="">
                         </a>
                         <div class="information-post-right">
-                            <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                            <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                                 <h3>${post.title}</h3>
                             </a>
                             <div class="info-author">
@@ -30,7 +26,7 @@ function listTopicPost() {
                                     <p class="name-author">
                                        ${post.author[0].name}
                                     </p>
-                                    <p class="date-time">${post.created_at}</p>
+                                    <p class="date-time">${new Date(post.created_at).toLocaleDateString() }</p>
                                     <div class="contact-author">
                                         <img src="${post.author[0].url}" alt="">
                                         <p class="name-author">${post.author[0].name}</p>
@@ -48,9 +44,10 @@ function listTopicPost() {
 }
 
 function postHost() {
-    fetch('http://127.0.0.1:8000/api/articles/hot')
+    fetch('http://127.0.0.1:8000/api/articles/hot?quantity=3')
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             let htmls = `
             <div class="post-1" data-article-id="${data[0].id}">
                 <a href="http://127.0.0.1:8000/index/article/${data[0].title}/${data[0].id}">
@@ -64,7 +61,7 @@ function postHost() {
                             <p class="name-author">
                                 ${data[0].author[0].name}
                             </p>
-                            <p class="date-time">${(new Date(data[0].created_at)).toLocaleString()}</p>
+                            <p class="date-time">${(new Date(data[0].created_at)).toLocaleDateString() }</p>
                             <div class="contact-author">
                                 <img src="${data[0].author[0].url}" alt="">
                                 <p class="name-author"> ${data[0].author[0].name}</p>
@@ -90,7 +87,7 @@ function postHost() {
                                         <p class="name-author">
                                             ${value.author[0].name}
                                         </p>
-                                        <p class="date-time">${(new Date(value.created_at)).toLocaleString()}</p>
+                                        <p class="date-time">${(new Date(value.created_at)).toLocaleDateString() }</p>
                                         <div class="contact-author">
                                             <img src="${value.author[0].url}" alt="">
                                             <p class="name-author">${value.author[0].name}</p>
@@ -122,7 +119,7 @@ function listPost() {
                             <img class="img-post" src="${post.image}" alt="">
                         </a>
                         <div class="information-post">
-                            <a href="http://127.0.0.1:8000/index/article/${post.id}">
+                            <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
                                 <h3>${post.title}</h3>
                                 <p>${post.subheadline}</p>
                             </a>
@@ -132,7 +129,7 @@ function listPost() {
                                         <p class="name-author">
                                             ${post.author[0].name}
                                         </p>
-                                        <p class="date-time">${(new Date(post.created_at)).toLocaleString()}</p>
+                                        <p class="date-time">${(new Date(post.created_at)).toLocaleDateString() }</p>
                                         <div class="contact-author">
                                             <img src="${post.author[0].url}" alt="">
                                             <p class="name-author">${post.author[0].name}</p>
@@ -176,12 +173,11 @@ function setBtnlistPost() {
 
 }
 
-
-
 function start() {
     postHost()
     listPost()
-    listTopicPost()     
+    listTopicPost() 
+    
 }
 
 start()

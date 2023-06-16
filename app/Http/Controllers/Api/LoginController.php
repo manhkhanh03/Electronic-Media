@@ -75,7 +75,8 @@ class LoginController extends Controller
 
     private function getUserByUsername($username)
     {
-        return Login::where('username', $username)->first();
+        $login = Login::where('username', $username)->first();
+        return User::where('login_id', $login->id)->first();
     }
 
     /**

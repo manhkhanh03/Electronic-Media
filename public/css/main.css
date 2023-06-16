@@ -121,6 +121,7 @@ menu {
     margin-left: 6px;
     border-radius: 50%;
 }
+
 .box-logout {
     position: absolute;
     bottom: -72px;
@@ -251,12 +252,65 @@ menu {
     text-align: right;
     color: var(--backgr);
     position: relative;
+    /* display: flex;
+    align-items: center; */
 }
 
-.fa-magnifying-glass {
-    font-size: 22px;
-    margin-top: 10px;
+.box-search .fa-magnifying-glass {
+    position: absolute;
+    color: #000;
+    transform: translate(-50%, 50%);
+    right: 0;
+    cursor: pointer;
 }
+
+.box-searched {
+    position: absolute;
+    right: 0;
+    width: 82%;
+    height: max-content;
+    min-height: 38px;
+    background: #fff;
+    border-radius: 6px;
+    color: #000;
+    z-index: 999;
+    margin-top: 4px;
+    text-align: center;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.4);
+    padding: 6px;
+    display: none;
+}
+
+.box-searched .box-searched-info {
+    display: flex;
+    text-align: left;
+    margin: 4px;
+}
+
+.box-searched .box-searched-info img {
+    width: 56px;
+    height: 44px;
+    margin-right: 4px;
+}
+
+.box-searched .box-searched-info header {
+    font-size: 13px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+}
+
+.box-searched .box-searched-info .subtitle {
+    font-size: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+}
+
 
 .input-search {
     border-radius: 10px;

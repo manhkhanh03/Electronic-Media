@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('categorie_id');
             $table->json('JSON');
-            $table->integer('hot_id');
             $table->unsignedBigInteger('status_id');
             $table->timestamps();
         });

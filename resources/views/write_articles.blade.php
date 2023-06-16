@@ -20,6 +20,15 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
     <link rel="stylesheet" href="/css/write_acticles.css">
+    <script>
+        fetch('http://127.0.0.1:8000/api/role')
+            .then(response => response.json())
+            .then(role => {
+            console.log(role)
+            if (role.role === 'reader')
+            location.href = 'http://127.0.0.1:8000/index/index'
+            })
+    </script>
 @endpush
 
 @section('menu-nav-body')

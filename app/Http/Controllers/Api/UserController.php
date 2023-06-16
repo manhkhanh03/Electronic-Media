@@ -30,7 +30,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $data = User::join('image_users', 'user_id', '=', 'users.id')
-            ->where('login_id', $id)
+            ->where('users.id', $id)
             ->select('users.*', 'image_users.user_id', 'image_users.url')
             ->get();
         return response()->json($data, 200, ['OK']);

@@ -1,22 +1,20 @@
-// const { hide } = require("@popperjs/core");
-
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
-// const urlParams = new URLSearchParams(window.location.search);
-let login_id;
+// let login_id;
 let roleUser;
 let user_id;
 fetch('http://127.0.0.1:8000/api/login/user/id')
     .then(response => response.json())
     .then(id => {
-        login_id = id.id;
+        // login_id = id.id;
+        user_id = id.id
     })
     .then(() => {
         return new Promise(async (resolve) => {
             await checkUser();
             resolve();
         });
-    });
+    })
 
 function getRole() {
     fetch('http://127.0.0.1:8000/api/role')
@@ -28,26 +26,25 @@ function getRole() {
             permission()
         })
 }
-
 getRole()
 
-async function getUserId() {
-    return new Promise((resolve, reject) => {
-        fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
-            .then(response => response.json())
-            .then(data => {
-                user_id = data.id;
-                resolve(user_id);
-            })
-            .catch(error => reject(error));
-    });
-}
+// async function getUserId() {
+//     return new Promise((resolve, reject) => {
+//         fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 user_id = data.id;
+//                 resolve(user_id);
+//             })
+//             .catch(error => reject(error));
+//     });
+// }
 
 async function getUser() {
-    fetch(`http://127.0.0.1:8000/api/user/${login_id}`)
+    fetch(`http://127.0.0.1:8000/api/user/${user_id}`)
         .then(response => response.json())
         .then(data => {
-            user_id = data[0].id;
+            // user_id = data[0].id;
             const boxUser = $('.box-user')
             boxUser.innerHTML = `<div class="box-user">
                         <p>${data[0].name}</p>
@@ -85,13 +82,13 @@ async function getUser() {
             const logout = $('.box-logout li:nth-child(2)')
             logout.addEventListener('click', () => {
                 handleLogout();
-             })
+            })
         })
         .catch(err => { console.log(err) })
 }
 
 async function checkUser() {
-    if (login_id) {
+    if (user_id) {
         await getUser();
     } else {
         permission()
@@ -113,7 +110,7 @@ function addMessage(text) {
 function handlingMessageDisplay(data, dialogBoxPrivacy, receiver_id) {
     let htmls = data.map((ele) => {
         if (receiver_id == ele.receiver_id || receiver_id == ele.sender_id) {
-            if (login_id == ele.sender_id && receiver_id == ele.receiver_id)
+            if (user_id == ele.sender_id && receiver_id == ele.receiver_id)
                 return `<li class="box-dialog-box-privacy" data-id-mess="${ele.id}">
                             <div class="me">${ele.content}
                                 <div class="mess-hover">
@@ -122,7 +119,7 @@ function handlingMessageDisplay(data, dialogBoxPrivacy, receiver_id) {
                                 </div>
                             </div>
                             </li>`
-            else if (login_id == ele.receiver_id && receiver_id == ele.sender_id)
+            else if (user_id == ele.receiver_id && receiver_id == ele.sender_id)
                 return `<li class="box-dialog-box-privacy"><p class="you">${ele.content}</p></li>`
         }
     }).join('')
@@ -163,18 +160,18 @@ function handleMess(data) {
 
 function getBoxMessenger() {
     const item = $('.item-mess');
-    if (!login_id) {
+    if (!user_id){
         item.innerHTML = `
                         <div class="none">Không có tin nhắn nào <br> Hãy đăng nhập để sử dụng tính năng nhắn tin</div>
            `
         handleLoad()
     } else {
-        fetch(`http://127.0.0.1:8000/api/messenger/${login_id}`)
+        fetch(`http://127.0.0.1:8000/api/messenger/${user_id}`)
             .then(response => response.json())
             .then(data => {
                 data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
                 const htmls = handleMess(data).map(messenger => {
-                    if (messenger.receiver_id != login_id)
+                    if (messenger.receiver_id != user_id) 
                         return `<div class="dialogbox" data-id="${messenger.receiver_id}">
                             <img src="${messenger.url}" alt="">
                             <div class="info-mess">
@@ -235,7 +232,7 @@ function postMessenger(inputValue) {
     const receiver_id = dialogBoxPrivacy.getAttribute('data-receiver-id')
     if (inputValue.value.trim() != '') {
         const data = {
-            sender_id: login_id,
+            sender_id: user_id,
             receiver_id: receiver_id,
             content: inputValue.value
         }
@@ -246,7 +243,6 @@ function postMessenger(inputValue) {
             },
             body: JSON.stringify(data)
         }
-        console.log(data)
         fetch(`http://127.0.0.1:8000/api/messenger`, options)
             .then(() => {
                 let htmls = dialogBoxPrivacy.innerHTML;
@@ -281,7 +277,6 @@ function delMess() {
                     .then(data => {
                         const boxDialogBoxPrivacy = $('.dialog-box-privacy')
                         const children = boxDialogBoxPrivacy.querySelectorAll(`[data-id-mess="${idMess}"]`);
-                        console.log(children)
                         children.forEach(child => {
                             child.remove();
                         });
@@ -339,7 +334,7 @@ function handleLoad() {
         }
     });
 
-    if (login_id) {
+    if (user_id) {
         prev.onclick = () => {
             hideElement(privacyDialog)
             showElement(itemMess)
@@ -369,7 +364,6 @@ function mess() {
                         data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
                         const nameMess = $('.privacy-dialog .name')
                         const imgMess = $('.privacy-dialog img')
-                        console.log(element.getAttribute('data-receiver-id'))
                         imgMess.src = imgUrl[index].src;
                         nameMess.innerHTML = nameAuthor[index].innerHTML
                         dialogMess(data, receiver_id)
@@ -385,7 +379,6 @@ function mess() {
 
 function permission() {
     const boxIcon = $('.box-icon-mess')
-    console.log(boxIcon, roleUser)
     switch (roleUser) {
         case 'reader':
             boxIcon.innerHTML = `
@@ -437,7 +430,7 @@ function eventPermission() {
         }
     }
     else {
-        add = $('.fa-circle-minus') 
+        add = $('.fa-circle-minus')
         add.onclick = () => {
             // per.style.animation = 'display .25s ease'
             // per.style.animationDirection = 'reverse'
@@ -454,9 +447,70 @@ function handleLogout() {
         .then(() => {
             location.href = 'http://127.0.0.1:8000/index/login'
         })
-        .catch(err => { 
+        .catch(err => {
             console.log('error: ' + err)
         })
 }
 
-// export { mess, getUser }
+
+function handleSearchArticles(value) {
+    const data = {
+        title: value,
+        status_id: 3
+    }
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'aplication/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch('http://127.0.0.1:8000/api/articles/search/articles', options)
+        .then(response => response.json())
+        .then(data => {
+            const boxSearched = $('.box-searched')
+            let htmls = data.map((item) => {
+                return `
+                        <a href="http://127.0.0.1:8000/index/article/${item.title}/${item.id}">
+                            <div class="box-searched-info">
+                                <img src="${item.image}" alt="">
+                                <div class="header">
+                                    <header class="header-post">${item.title}</header>
+                                    <p class="subtitle">${item.subheadline}</p>
+                                </div>
+                            </div>
+                        </a>
+                    `
+            })
+            boxSearched.innerHTML = htmls.join('')
+        })
+
+}
+
+function handleSearch() {
+    const searchArticles = $('input[name="input-search')
+    searchArticles.onfocus = () => {
+        $('.box-searched').style.display = 'block'
+        searchArticles.onkeydown = (key) => {
+            if (key.which === 13) {
+                handleSearchArticles(searchArticles.value)
+            }
+        }
+    }
+    $('.box-search .fa-magnifying-glass').onclick = () => {
+        handleSearchArticles(searchArticles.value)
+    }
+
+    document.addEventListener('click', (event) => {
+        if (event.target.matches('input[name="input-search') || event.target.closest('input[name="input-search') || event.target.matches('.box-search .fa-magnifying-glass') || event.target.closest('.box-search .fa-magnifying-glass')) {
+            return;
+        }
+        if ($('.box-searched').style.display == 'block') {
+            hideElement($('.box-searched'));
+        }
+    });
+}
+
+handleSearch()
