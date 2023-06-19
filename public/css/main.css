@@ -28,19 +28,19 @@ a {
 
 @keyframes display {
     0% {
-        right: -10%;
+        right: -30%;
     }
 
     25% {
-        right: -8%;
+        right: -20%;
     }
 
     50% {
-        right: -4%;
+        right: -10%;
     }
 
     75% {
-        right: 2%;
+        right: 0%;
     }
 
     100% {
@@ -489,11 +489,11 @@ menu {
 
 /* Messenger */
 .messenger {
-    width: 100%;
+    width: 15%;
     text-align: right;
     position: sticky;
     bottom: 20px;
-    /* float: right; */
+    float: right;
     z-index: 0;
 }
 

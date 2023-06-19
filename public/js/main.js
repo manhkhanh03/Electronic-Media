@@ -424,7 +424,7 @@ function eventPermission() {
     if (add) {
         add.onclick = () => {
             per.style.display = 'flex'
-            per.style.animation = 'display .25s linear'
+            per.style.animation = 'display .25s linear';
             per.style.right = '42px'
             handleClass(add, 'fa-circle-minus', 'fa-circle-plus')
             eventPermission()
@@ -435,7 +435,7 @@ function eventPermission() {
         add.onclick = () => {
             // per.style.animation = 'display .25s ease'
             // per.style.animationDirection = 'reverse'
-            per.style.right = '-0%'
+            per.style.right = '-100px'
             handleClass(add, 'fa-circle-plus', 'fa-circle-minus')
             per.style.display = 'none'
             eventPermission()
