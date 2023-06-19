@@ -15,12 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        for ($i = 0; $i < 50; $i++) {
-            \DB::table('comments') -> insert([
-                'user_id' => rand(1, 17),
-                'article_id' => rand(1, 3),
-                'content' => 'content parent '. $i,
-                'parent_comment_id' => rand(1, 126)
+        for ($i = 0; $i < 10; $i++) {
+            \DB::table('follows') -> insert([
+                'following_id' => rand(1, 17),
+                'follower_id' => rand(1, 17)
             ]);
         }
         Schema::enableForeignKeyConstraints();

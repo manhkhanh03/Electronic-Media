@@ -77,6 +77,10 @@
     position: relative;
 }
 
+.author p {
+    font-size: 14px;
+}
+
 .author img {
     width: 20px;
     height: 20px;
@@ -96,8 +100,7 @@
     border-radius: 10px;
     align-items: center;
     background-color: #fff;
-    box-shadow: -2px -2px 8px #dedede,
-        2px 2px 8px #d5d5d5;
+    box-shadow: -2px 8px 8px #dedede, 2px 2px 8px #d5d5d5;
     display: none;
 }
 

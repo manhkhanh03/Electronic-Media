@@ -28,16 +28,17 @@ class LikeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $article_id, string $user_id)
+    // public function show(string $article_id, string $user_id)
+    public function show(Request $request)
     {
         $total_like = Like::selectRaw('count(*) as total')
-                    ->where('article_id', $article_id)
+                    ->where('article_id', $request->article_id)
                     ->groupBy()
                     ->get();
 
         $user_like = Like::selectRaw('user_id')
-                    ->where('article_id', $article_id)
-                    ->where('user_id', $user_id)
+                    ->where('article_id', $request->article_id)
+                    ->where('user_id', $request->user_id)
                     ->get();
 
         $total_like_array = [];

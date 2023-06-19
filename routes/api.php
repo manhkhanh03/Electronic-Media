@@ -39,7 +39,9 @@ Route::prefix('login')->group(function () {
 });
 
 Route::prefix('user')->group(function () {
-    Route::get('/{id}', 'App\Http\Controllers\Api\UserController@show'); /////////////
+    Route::get('/{id}', 'App\Http\Controllers\Api\UserController@show'); ///////////// alter the route
+    // Route::get('management/users', 'App\Http\Controllers\Api\UserController@handleManagementUsers'); 
+    Route::get('management/users/search', 'App\Http\Controllers\Api\UserController@handleSearchName'); 
     Route::match(['put', 'patch'], '/{id}', 'App\Http\Controllers\Api\UserController@update');
 });
 
@@ -50,7 +52,7 @@ Route::prefix('articles')->group(function () {
     Route::get('/categories', 'App\Http\Controllers\Api\ArticleController@showCategories');
     Route::get('/cate/related_news/', 'App\Http\Controllers\Api\ArticleController@showRelatedNews');
     Route::get('/', 'App\Http\Controllers\Api\ArticleController@showArticleById');
-    Route::post('', 'App\Http\Controllers\Api\ArticleController@store'); ////////////
+    Route::post('', 'App\Http\Controllers\Api\ArticleController@store'); 
     Route::post('/search/articles', 'App\Http\Controllers\Api\ArticleController@handleSearchArticles');
     Route::put('/{id}', 'App\Http\Controllers\Api\ArticleController@update');
     Route::delete('/{id}', 'App\Http\Controllers\Api\ArticleController@destroy');
@@ -76,7 +78,13 @@ Route::prefix('comment')->group(function () {
 });
 
 Route::prefix('like')->group(function () {
-    Route::get('/{article_id}/{user_id}', 'App\Http\Controllers\Api\LikeController@show'); /////////////
+    Route::get('', 'App\Http\Controllers\Api\LikeController@show'); 
     Route::post('', 'App\Http\Controllers\Api\LikeController@store');
     Route::delete('', 'App\Http\Controllers\Api\LikeController@destroy');
+});
+
+Route::prefix('follow')->group(function () {
+    Route::get('', 'App\Http\Controllers\Api\FollowController@show'); // request->follower_id
+    Route::post('', 'App\Http\Controllers\Api\FollowController@store'); // request->follower_id and following_id
+    Route::delete('/{id}', 'App\Http\Controllers\Api\FollowController@destroy');
 });

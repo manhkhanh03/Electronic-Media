@@ -26,7 +26,7 @@ function listTopicPost() {
                                     <p class="name-author">
                                        ${post.author[0].name}
                                     </p>
-                                    <p class="date-time">${new Date(post.created_at).toLocaleDateString() }</p>
+                                    <p class="follow no-active-follow" data-author-id="${post.author_id}" data-follow-id="${post.follow_id}"></p>
                                     <div class="contact-author">
                                         <img src="${post.author[0].url}" alt="">
                                         <p class="name-author">${post.author[0].name}</p>
@@ -38,8 +38,11 @@ function listTopicPost() {
                     </li>
                 `
             })
+
+            // < p class="date-time" > ${ new Date(post.created_at).toLocaleDateString() }</ >
             listpost.innerHTML = htmls.join('')
             mess()
+            handleEventFollower() 
         })
 }
 
@@ -47,7 +50,6 @@ function postHost() {
     fetch('http://127.0.0.1:8000/api/articles/hot?quantity=3')
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             let htmls = `
             <div class="post-1" data-article-id="${data[0].id}">
                 <a href="http://127.0.0.1:8000/index/article/${data[0].title}/${data[0].id}">
@@ -61,7 +63,7 @@ function postHost() {
                             <p class="name-author">
                                 ${data[0].author[0].name}
                             </p>
-                            <p class="date-time">${(new Date(data[0].created_at)).toLocaleDateString() }</p>
+                            <p class="follow no-active-follow" data-author-id="${data[0].author_id}" data-follow-id="${data[0].follow_id}"></p>
                             <div class="contact-author">
                                 <img src="${data[0].author[0].url}" alt="">
                                 <p class="name-author"> ${data[0].author[0].name}</p>
@@ -72,8 +74,10 @@ function postHost() {
             </div>
             
             <div class="post-2">`
+
+            // < p class="date-time" > ${ (new Date(data[0].created_at)).toLocaleDateString() }</ >
             htmls += data.map((value, index) => {
-                if (index >= 1 &&  index <= 2) {
+                if (index >= 1 && index <= 2) {
                     return `
                         <div class="box-post-2" data-article-id="${value.id}">
                             <a href="http://127.0.0.1:8000/index/article/${value.title}/${value.id}">
@@ -87,7 +91,7 @@ function postHost() {
                                         <p class="name-author">
                                             ${value.author[0].name}
                                         </p>
-                                        <p class="date-time">${(new Date(value.created_at)).toLocaleDateString() }</p>
+                                        <p class="follow no-active-follow" data-author-id="${value.author_id}" data-follow-id="${value.follow_id}"></p>
                                         <div class="contact-author">
                                             <img src="${value.author[0].url}" alt="">
                                             <p class="name-author">${value.author[0].name}</p>
@@ -99,6 +103,8 @@ function postHost() {
                     `
                 }
             }).join('')
+
+            // < p class="date-time" > ${ (new Date(value.created_at)).toLocaleDateString() }</ >
             htmls += `</div><div class="poster">
                     <img src="/img/blob.jpg" alt="">
                 </div>`
@@ -129,7 +135,7 @@ function listPost() {
                                         <p class="name-author">
                                             ${post.author[0].name}
                                         </p>
-                                        <p class="date-time">${(new Date(post.created_at)).toLocaleDateString() }</p>
+                                        <p class="follow no-active-follow" data-author-id="${post.author_id}" data-follow-id="${post.follow_id}"></p>
                                         <div class="contact-author">
                                             <img src="${post.author[0].url}" alt="">
                                             <p class="name-author">${post.author[0].name}</p>
@@ -142,6 +148,7 @@ function listPost() {
                 </li>
             `)
 
+            // < p class="date-time" > ${ (new Date(post.created_at)).toLocaleDateString() }</ >
             boxListPost.innerHTML = htmls.join('')
         })
         .then(() => {
@@ -176,8 +183,8 @@ function setBtnlistPost() {
 function start() {
     postHost()
     listPost()
-    listTopicPost() 
-    
+    listTopicPost()
+
 }
 
 start()

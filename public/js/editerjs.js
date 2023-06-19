@@ -151,7 +151,6 @@ function editArticle() {
 
 function myFunction(status_id) {
     let categorie = $('#text-item').getAttribute('data-categorie');
-    // const user_id = user_id;
 
     console.log(user_id)
     if (categorie && user_id) {
@@ -216,20 +215,26 @@ function handleEvent(categorie) {
 function start() {
     $$('.btn').forEach((btn, index) => {
         btn.onclick = () => {
-            if (index === 0) {
-                let result = confirm('Bạn có chắc muốn xóa bài viết này?')
-                if (result)
-                    window.location.href = 'http://127.0.0.1:8000/index/write_articles'
-            } else if (index === 1) {
-                let result = confirm('Bạn có chắc chắn muốn lưu bản nháp cho bài viết này?')
-                if (result)
-                    myFunction(1)
-            } else {
-                console.log(user_id)
-                let result = confirm('Bạn có chắc muốn đăng bài viết này?')
-                if (result)
-                    myFunction(2)
-            }
+            fetch(`http://127.0.0.1:8000/api/user/${user_id}`)
+                .then(response => response.json())
+                .then(user => {
+                    if (user.limit_write === 0) {
+                        if (index === 0) {
+                            let result = confirm('Bạn có chắc muốn xóa bài viết này?')
+                            if (result)
+                                window.location.href = 'http://127.0.0.1:8000/index/write_articles'
+                        } else if (index === 1) {
+                            let result = confirm('Bạn có chắc chắn muốn lưu bản nháp cho bài viết này?')
+                            if (result)
+                                myFunction(1)
+                        } else {
+                            console.log(user_id)
+                            let result = confirm('Bạn có chắc muốn đăng bài viết này?')
+                            if (result)
+                                myFunction(2)
+                        }
+                    }else alert('Bạn đã bị hạn chế viết bài! Vui lòng liên hệ với quản trị viên để biết thêm chi tiết')
+                })
         }
     })
     handleEvent()

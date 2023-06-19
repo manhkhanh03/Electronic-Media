@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Article;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -52,5 +54,53 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // public function handleManagementUsers(Request $request) {
+    //     $users_reader = User::join('roles', 'roles.id', 'users.user_role_id')
+    //                 ->leftJoin('articles', 'articles.author_id', 'users.id')
+    //                 ->whereRaw('articles.author_id is null')
+    //                 ->selectRaw('users.id,  users.user_role_id, users.name, users.address, users.phone, users.email, roles.name as role_name')
+    //                 ->groupBy('users.id','users.user_role_id', 'users.name', 'users.address', 'users.phone', 'users.email', 'roles.name', 'articles.author_id')
+    //                 ->get();
+    //     $users = User::join('roles', 'roles.id', 'users.user_role_id')
+    //             ->join('articles', 'articles.author_id', 'users.id')
+    //             ->selectRaw('users.id,  users.user_role_id, users.name, users.address, users.phone, users.email, roles.name as role_name')
+    //             ->selectRaw('count(articles.author_id) as total_articles')
+    //             ->groupBy('users.id','users.user_role_id', 'users.name', 'users.address', 'users.phone', 'users.email', 'roles.name', 'articles.author_id')
+    //             ->get();
+
+    //     $users_reader = json_decode($users_reader);
+    //     $users = json_decode($users);
+    //     foreach($users_reader as $user) {
+    //         array_push($users, $user);
+    //     }
+    //     return response()->json($users, 200, ['OK']);
+    // }
+
+    public function handleSearchName(Request $request) {// request -> name -> role_name
+        $users_reader = User::join('roles', 'roles.id', 'users.user_role_id')
+                    ->leftJoin('articles', 'articles.author_id', 'users.id')
+                    ->whereRaw('users.name like  "%'.$request->name .'%"')
+                    ->whereRaw('roles.name like  "%'.$request->role_name .'%"')
+                    ->whereRaw('articles.author_id is null')
+                    ->selectRaw('users.limit_write, users.id,  users.user_role_id, users.name, users.address, users.phone, users.email, roles.name as role_name')
+                    ->groupBy('users.id','users.user_role_id', 'users.name', 'users.address', 'users.phone', 'users.email', 'roles.name', 'articles.author_id')
+                    ->get();
+        $users = User::join('roles', 'roles.id', 'users.user_role_id')
+                ->join('articles', 'articles.author_id', 'users.id')
+                ->whereRaw('users.name like  "%'.$request->name .'%"')
+                ->whereRaw('roles.name like  "%'.$request->role_name .'%"')
+                ->selectRaw('users.limit_write, users.id,  users.user_role_id, users.name, users.address, users.phone, users.email, roles.name as role_name')
+                ->selectRaw('count(articles.author_id) as total_articles')
+                ->groupBy('users.id','users.user_role_id', 'users.name', 'users.address', 'users.phone', 'users.email', 'roles.name', 'articles.author_id')
+                ->get();
+
+        $users_reader = json_decode($users_reader);
+        $users = json_decode($users);
+        foreach($users_reader as $user) {
+            array_push($users, $user);
+        }
+        return response()->json($users, 200, ['OK']);
     }
 }

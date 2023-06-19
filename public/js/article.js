@@ -33,6 +33,7 @@ function getPost() {
                                 ${data.data_user[0].name}
                             </p>
                             <p class="date-time">${(new Date(data.created_at)).toLocaleString()}</p>
+                            <p style="margin-left:10px; cursor: pointer;" class="follow no-active-follow" data-author-id="${data.author_id}" data-follow-id="${data.follow_id}"></p>
                             <div class="contact-author">
                                 <img src="${data.data_user[0].url}" alt="">
                                 <p class="name-author">${data.data_user[0].name}</p>
@@ -106,7 +107,8 @@ function getPost() {
         })
         .then(() => {
             handleRelatedNews()
-         })
+            handleEventFollower()
+        })
 }
 
 function deleteArticle(id) {
@@ -383,7 +385,7 @@ function handleWriteCommentParent(feedback) {
 }
 
 function handleTotalLike() {
-    fetch(`http://127.0.0.1:8000/api/like/${article_id}/${user_id}`)
+    fetch(`http://127.0.0.1:8000/api/like?article_id=${article_id}&user_id=${user_id}`)
         .then(response => response.json())
         .then(data => {
             $('.info-post p:nth-child(1)').innerHTML = data.total + ' Lượt thích'
@@ -395,7 +397,7 @@ function handleTotalLike() {
 
 function handleLike() {
     const like = $('.feeling .feeling-box:nth-child(1)')
-    like.onclick = () => { 
+    like.onclick = () => {
         like.classList.toggle('active-emotion')
         const activeLike = $('.feeling .feeling-box:nth-child(1).active-emotion')
         const data = {
@@ -407,12 +409,9 @@ function handleLike() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         }
-        if (activeLike) 
-            fetch(`http://127.0.0.1:8000/api/like`, options)
-        else {
+        if (!activeLike)
             options.method = 'delete'
-            fetch(`http://127.0.0.1:8000/api/like`, options)
-        }
+        fetch(`http://127.0.0.1:8000/api/like`, options)
     }
 }
 
@@ -420,7 +419,7 @@ function handleRelatedNews() {
     const categoryId = $('#categories_id').getAttribute('data-cate-id');
     fetch(`http://127.0.0.1:8000/api/articles/cate/related_news?article_id=${article_id}&categorie_id=${categoryId}`)
         .then(response => response.json())
-        .then(data => { 
+        .then(data => {
             const listRelatedNews = $('.list-posts')
             const htmls = data.map(ele => {
                 return `
@@ -437,7 +436,7 @@ function handleRelatedNews() {
                                             <p class="name-author">
                                                 ${ele.author[0].name}
                                             </p>
-                                            <p class="date-time">${(new Date(ele.created_at)).toLocaleString()}</p>
+                                            <p class="follow no-active-follow" data-author-id="${ele.author_id}" data-follow-id="${ele.follow_id}"></p>
                                             <div class="contact-author">
                                                 <img src="${ele.author[0].url}" alt="">
                                                 <p class="name-author">${ele.author[0].name}</p>
@@ -453,6 +452,8 @@ function handleRelatedNews() {
                 `
             })
 
+            // < p class="date-time" > ${ (new Date(ele.created_at)).toLocaleString() }</ >
+
             listRelatedNews.innerHTML = htmls.join('')
         })
 }
@@ -461,7 +462,7 @@ function setMostAccessed() {
     const mostAccessed = $('.most-accessed')
     fetch('http://127.0.0.1:8000/api/articles/hot?quantity=8')
         .then(response => response.json())
-        .then(data => { 
+        .then(data => {
             console.log(data)
             const htmls = data.map(article => {
                 return `
@@ -478,9 +479,9 @@ function setMostAccessed() {
                                     <div class="author">
                                         <img src="${article.author[0].url}" alt="" class="img-author">
                                         <p class="name-author">
-                                            Manh Khanh
+                                            ${article.author[0].name}
                                         </p>
-                                        <p class="date-time">${new Date(article.created_at).toLocaleDateString() }</p>
+                                        <p class="follow no-active-follow" data-author-id="${article.author_id}" data-follow-id="${article.follow_id}"></p>
                                         <div class="contact-author">
                                             <img src="${article.author[0].url}" alt="">
                                             <p class="name-author">${article.author[0].name}</p>
@@ -493,8 +494,8 @@ function setMostAccessed() {
                     </li>
                 `
             })
-
-            mostAccessed.innerHTML =htmls.join('')
+            // < p class="date-time" > ${ new Date(article.created_at).toLocaleDateString() }</ >
+            mostAccessed.innerHTML = htmls.join('')
         })
 }
 

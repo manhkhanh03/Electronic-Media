@@ -79,4 +79,5 @@ $data = json_decode($response->getBody());
 @push('js')
     <script src="/js/index.js"></script>
     <script src="/js/posts.js"></script>
+    <script src="/js/follow.js"></script>
 @endpush

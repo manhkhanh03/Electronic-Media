@@ -48,7 +48,7 @@
 @endsection
 
 @section('footer')
-    @parent
+    {{-- @parent --}}
 @endsection
 
 @section('codejs')

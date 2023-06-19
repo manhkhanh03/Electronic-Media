@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Hot;
+use App\Http\Controllers\Api\FollowController;
 
 class ArticleController extends Controller
 {
@@ -57,18 +58,20 @@ class ArticleController extends Controller
         //
     }
 
-    public function handleData($posts) {
+    public function handleData($posts, $user_id) {
         $newPosts = [];
         foreach ($posts as $post) {
             array_push($newPosts, json_decode($post->JSON));
         }
         $new = [];
+        $fl = new FollowController();
         foreach($newPosts as $index => $postss) {
             $obj = [];
             $obj['id'] = $posts[$index]->id;
             $obj['author_id'] = $posts[$index]->author_id;
             $obj['categorie_id'] = $posts[$index]->categorie_id;
             $obj['author'] = $this->show_user($posts[$index]->author_id);
+            $obj['follow_id'] = $fl->getFollow($user_id, $posts[$index]->author_id);
             foreach ($postss as $key => $post) {
                 if ($post->type === 'header') {
                     if ($post->data->level === 1) {
@@ -87,7 +90,7 @@ class ArticleController extends Controller
         return $new;
     }
 
-    public function showByPostOrByStatus($hot, $status) {
+    public function showByPostOrByStatus($hot, $status, $user_id) {
         $posts = Article::join('hots', 'article_id', 'articles.id')
                 ->where('status_id', $status)
                 ->groupBy('articles.id', 'author_id', 'categorie_id')
@@ -96,7 +99,7 @@ class ArticleController extends Controller
                 ->select('articles.id', 'author_id', 'categorie_id', 'created_at', 'JSON', 'status_id')
                 ->get();
         $posts = json_decode($posts);
-        return $this->handleData($posts);
+        return $this->handleData($posts, $user_id);
     }
 
     public function showArticleById(Request $request) {
@@ -105,6 +108,7 @@ class ArticleController extends Controller
                 ->get();
         $posts = json_decode($posts);
         $newPosts = [];
+        $fl = new FollowController();
         foreach ($posts as $index => $post) {
             $newPosts['id'] = $posts[$index]->id;
             $newPosts['status_article'] = $posts[$index]->status_id;
@@ -112,6 +116,7 @@ class ArticleController extends Controller
             $newPosts['author_id'] = $posts[$index]->author_id;
             $newPosts['created_at'] = $posts[$index]->created_at;
             $newPosts['data_article'] = json_decode($post->JSON);
+            $newPosts['follow_id'] = $fl->getFollow($request->cookie('jKmLpNqRsTuVwXyZaBcD'), $posts[$index]->author_id);
             $newPosts['data_user'] = $this->show_user($posts[$index]->author_id);
         }
 
@@ -124,7 +129,7 @@ class ArticleController extends Controller
                 ->select()
                 ->get();
         $posts = json_decode($posts);
-        return $this->handleData($posts);
+        return $this->handleData($posts, $request->cookie('jKmLpNqRsTuVwXyZaBcD'));
     }
 
     public function show_user(string $id) {
@@ -137,7 +142,7 @@ class ArticleController extends Controller
 
     public function showPostHot(Request $request) {
         $articles = [];
-        foreach($this->showByPostOrByStatus(5, 3) as $index => $article) {
+        foreach($this->showByPostOrByStatus(5, 3, $request->cookie('jKmLpNqRsTuVwXyZaBcD')) as $index => $article) {
             if ($index <= $request->quantity) {
                 array_push($articles, $article);
             }else break;
@@ -145,12 +150,12 @@ class ArticleController extends Controller
         return response()->json($articles, 200, ['OK']);
     }
 
-    public function showPostHot_0() {
-        return response()->json($this->showByPostOrByStatus(0, 3), 200, ['OK']);
+    public function showPostHot_0(Request $request) {
+        return response()->json($this->showByPostOrByStatus(0, 3, $request->cookie('jKmLpNqRsTuVwXyZaBcD')), 200, ['OK']);
     }
 
-    public function showPostByStatus() {
-        return response()->json($this->showByPostOrByStatus(0, 2), 200, ['OK']);
+    public function showPostByStatus(Request $request) {
+        return response()->json($this->showByPostOrByStatus(0, 2, $request->cookie('jKmLpNqRsTuVwXyZaBcD')), 200, ['OK']);
     }
 
     /**
@@ -254,6 +259,6 @@ class ArticleController extends Controller
                 array_push($newArr, $article);
             }
         }
-        return $this->handleData($newArr);
+        return $this->handleData($newArr, $request->cookie('jKmLpNqRsTuVwXyZaBcD'));
     }
 }

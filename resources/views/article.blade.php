@@ -26,60 +26,7 @@
                 </div>
                 <div class="post-right">
                     <h3 class="header-most-accessed">Truy cập nhiều nhất</h3>
-                    <ul class="most-accessed">
-                        <li class="post-item" data-theme-type="${post.categorie_id}" data-article-id="${post.id}">
-                            <div class="post-item-div">
-                                <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
-                                    <img class="img-post" src="/img/ukuk.jpg" alt="">
-                                </a>
-                                <div class="information-post">
-                                    <a href="http://127.0.0.1:8000/index/article/${post.id}">
-                                        <h3>Giá bitcoin giảm mạnh sau lỗi hệ thống của sàn Binance</h3>
-                                    </a>
-                                    <div class="info-author">
-                                        <div class="author">
-                                            <img src="${post.author[0].url}" alt="" class="img-author">
-                                            <p class="name-author">
-                                                Manh Khanh
-                                            </p>
-                                            <p class="date-time">5/25/2023, 12:14:11 AM</p>
-                                            <div class="contact-author">
-                                                <img src="${post.author[0].url}" alt="">
-                                                <p class="name-author">Manh Khanh</p>
-                                                <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="post-item" data-theme-type="${post.categorie_id}" data-article-id="${post.id}">
-                            <div class="post-item-div">
-                                <a href="http://127.0.0.1:8000/index/article/${post.title}/${post.id}">
-                                    <img class="img-post" src="/img/ukuk.jpg" alt="">
-                                </a>
-                                <div class="information-post">
-                                    <a href="http://127.0.0.1:8000/index/article/${post.id}">
-                                        <h3>Giá bitcoin giảm mạnh sau lỗi hệ thống của sàn Binance</h3>
-                                    </a>
-                                    <div class="info-author">
-                                        <div class="author">
-                                            <img src="${post.author[0].url}" alt="" class="img-author">
-                                            <p class="name-author">
-                                                Manh Khanh
-                                            </p>
-                                            <p class="date-time">5/25/2023, 12:14:11 AM</p>
-                                            <div class="contact-author">
-                                                <img src="${post.author[0].url}" alt="">
-                                                <p class="name-author">Manh Khanh</p>
-                                                <button class="mess-author" data-receiver-id="${post.user_id}">Nhắn tin</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="most-accessed"></ul>
                 </div>
             </div>
         </div>
@@ -136,4 +83,5 @@
 @endsection
 @push('js')
     <script src="/js/article.js"></script>
+    <script src="/js/follow.js"></script>
 @endpush

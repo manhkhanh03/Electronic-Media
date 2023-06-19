@@ -35,4 +35,5 @@
 
 @push('js')
     <script src="/js/postsCategories.js"></script>
+    <script src="/js/follow.js"></script>
 @endpush

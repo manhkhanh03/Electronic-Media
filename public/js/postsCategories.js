@@ -24,7 +24,7 @@ function showListPosts() {
                                             <p class="name-author">
                                                 ${post.author[0].name}
                                             </p>
-                                            <p class="date-time">${(new Date(post.created_at)).toLocaleString()}</p>
+                                            <p class="follow no-active-follow" data-author-id="${post.author_id}" data-follow-id="${post.follow_id}"></p>
                                             <div class="contact-author">
                                                 <img src="${post.author[0].url}" alt="">
                                                 <p class="name-author">${post.author[0].name}</p>
@@ -40,8 +40,10 @@ function showListPosts() {
                             
                         </li>
             `) 
+                // < p class="date-time" > ${ (new Date(post.created_at)).toLocaleString() }</ >
             listPost.innerHTML = htmls.join('')
             mess();
+            handleEventFollower()
         })
 }
 

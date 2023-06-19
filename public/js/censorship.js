@@ -80,6 +80,7 @@ function handleStatusCensorship() {
         }
     })
 }
+
 function requestUpdateStatusCensorship(status_id, article_ids = []) {
     const updatePromises = [];
 
