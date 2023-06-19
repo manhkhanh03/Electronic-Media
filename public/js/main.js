@@ -389,8 +389,8 @@ function permission() {
             boxIcon.innerHTML = `
                             <i class="fa-solid fa-circle-plus"></i>
                             <div class="box-permission">
-                                <i class="fa-brands fa-facebook-messenger"></i>
-                              <a href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
+                                <i style="margin: 0 6px" class="fa-brands fa-facebook-messenger"></i>
+                                <a href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
                             </div>
                            `
             break;
@@ -398,9 +398,10 @@ function permission() {
             boxIcon.innerHTML = `
                             <i class="fa-solid fa-circle-plus"></i>
                             <div class="box-permission">
-                                <i class="fa-brands fa-facebook-messenger"></i>
-                                <a href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
-                                <a href="http://127.0.0.1:8000/index/censorship"> <i class="fa-solid fa-list-check"></i></a>
+                                <i style="margin: 0 6px" class="fa-brands fa-facebook-messenger"></i>
+                                <a style="margin: 0 6px" href="http://127.0.0.1:8000/index/editer/write_article"><i class="fa-solid fa-pen-nib"></i></a>
+                                <a style="margin: 0 6px" href="http://127.0.0.1:8000/index/censorship"> <i class="fa-solid fa-list-check"></i></a>
+                                <a style="margin: 0 6px" href="http://127.0.0.1:8000/index/userManagement"><i class="fa-solid fa-user-gear"></i></a>
                             </div>
                            `
             break;
