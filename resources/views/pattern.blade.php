@@ -119,7 +119,9 @@
                 @stack('comments')
             </main>
         </div>
-        <div class="messenger">
+
+        {{-- <div style=""> --}}
+            <div class="messenger">
                 <div class="box-icon-mess">
                     <i class="fa-brands fa-facebook-messenger"></i>
                     <p class="quantity-info">1</p>
@@ -132,13 +134,18 @@
                     <div class="item-mess">
                         <div class="none">Không có tin nhắn nào</div>
                     </div>
-
+            
                     <div class="privacy-dialog">
                         <div class="box-privacy-dialog"></div>
                     </div>
                 </div>
             </div>
-            <div style="width: 100%; height: 2px; background-color: var(--color); margin: 30px 0;"></div>
+        {{-- </div> --}}
+        
+        <div style="width: 100%; height: 2px; background-color: var(--color); margin: 30px 0; display: flex;
+    justify-content: right; position: relative;">
+            
+        </div>
     @show
 
     @section('footer')

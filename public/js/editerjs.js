@@ -218,7 +218,7 @@ function start() {
             fetch(`http://127.0.0.1:8000/api/user/${user_id}`)
                 .then(response => response.json())
                 .then(user => {
-                    if (user.limit_write === 0) {
+                    if (user[0].limit_write == 0) {
                         if (index === 0) {
                             let result = confirm('Bạn có chắc muốn xóa bài viết này?')
                             if (result)
