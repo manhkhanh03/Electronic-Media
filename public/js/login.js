@@ -19,6 +19,7 @@ function handleLogin() {
         },
         body: JSON.stringify(data)
     }
+    console.log(options)
     fetch('http://127.0.0.1:8000/api/login/checkLogin', options)
         .then((response) => response.json())
         .then((data) => {

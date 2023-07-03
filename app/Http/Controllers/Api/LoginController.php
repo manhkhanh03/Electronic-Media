@@ -30,7 +30,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $name = Login::where('username', $request->input('username'))->first();
+        $name = Login::where('username', $request->username)->first();
         if($name) {
             return response()->json(['status' => 'false'], 401);
         }

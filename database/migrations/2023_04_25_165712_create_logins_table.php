@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('logins', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('username', 100);
             $table->string('password');
+            $table->string('email');
             $table->timestamps();
         });
     }
