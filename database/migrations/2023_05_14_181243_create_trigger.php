@@ -13,7 +13,7 @@ return new class extends Migration
     {
          DB::unprepared('CREATE TRIGGER tr_User_Default AFTER INSERT ON `logins` FOR EACH ROW
             BEGIN
-                INSERT INTO users (`user_role_id`, `login_id`, `name`) VALUES (4, NEW.id, CONCAT("NguoiDoc", NEW.id));
+                INSERT INTO users (`user_role_id`, `login_id`, `name`, `email`) VALUES (4, NEW.id, CONCAT("NguoiDoc", NEW.id), NEW.email);
             END
         ');
     }
